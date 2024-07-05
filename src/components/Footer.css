@@ -1,0 +1,32 @@
+.footer {
+    background: #343a40 !important;
+    color: #ffffff!important;
+  }
+  
+  .footer a {
+    color: #ffffff!important;
+    text-decoration: none!important;
+  }
+  
+  .footer a:hover {
+    color: #d4af37!important; /* Gold color on hover */
+    text-decoration: underline!important;
+  }
+  
+  .footer .list-unstyled li {
+    margin-bottom: 10px!important;
+  }
+  
+  .footer .list-unstyled li a {
+    transition: color 0.2s!important;
+  }
+  
+  .footer .social-icons a {
+    font-size: 1.5rem!important;
+    transition: color 0.2s!important;
+  }
+  
+  .footer .social-icons a:hover {
+    color: #d4af37!important; /* Gold color on hover */
+  }
+  
