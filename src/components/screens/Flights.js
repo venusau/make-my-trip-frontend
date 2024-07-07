@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import moment from "moment-timezone";
 import "./Flights.css"; // Import your CSS file for styles
+import { useNavigate } from "react-router-dom";
 
 function Flights() {
   const [from, setFrom] = useState("");
@@ -13,6 +14,9 @@ function Flights() {
   const [returnTime, setReturnTime] = useState("");
   const [numberOfSeats, setNumberOfSeats] = useState(1);
   const [flights, setFlights] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedFlight, setSelectedFlight] = useState(null);
+  const navigate = useNavigate();
 
   const translucent = {
     backdropFilter: "blur(1px)",
@@ -28,11 +32,9 @@ function Flights() {
   const handleSearch = async (e) => {
     e.preventDefault();
     try {
-      // Ensure departureDate and departureTime are combined and formatted in ISO format with UTC timezone
       const formattedDepartureDateTime = moment.tz(`${departureDate}T${departureTime}`, 'YYYY-MM-DDTHH:mm', 'UTC').toISOString();
       const formattedReturnDateTime = returnDate ? moment.tz(`${returnDate}T${returnTime}`, 'YYYY-MM-DDTHH:mm', 'UTC').toISOString() : undefined;
 
-      // Construct query parameters with URLSearchParams
       const queryParams = new URLSearchParams({
         from,
         to,
@@ -54,6 +56,78 @@ function Flights() {
     }
   };
 
+  const handleBookFlight = (flight) => {
+    setSelectedFlight(flight);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedFlight(null);
+  };
+
+  const handleConfirmBooking = async () => {
+    try {
+      const response = await axios.post(
+        'https://make-my-trip-backend.onrender.com/api/booking',
+        {
+          bookingType: 'flight',
+          flightDetails: {
+            flightId: selectedFlight._id,
+            numberOfSeats: numberOfSeats,
+            departureDate: selectedFlight.departureTime,
+            returnDate: selectedFlight.returnTime // Include this only if it's a round trip
+          }
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+          }
+        }
+      );
+      console.log('Booking confirmed:', response.data);
+      handleCloseModal();
+      navigate("/bookingSuccess"); // Redirect to a success page or show a success message
+    } catch (error) {
+      console.log('Error confirming booking:', error);
+    }
+  };
+  
+
+  const flightConfirmModal = () => (
+    <div  className={`modal ${showModal ? 'show' : ''}`} tabIndex="-1" style={{ display: showModal ? 'block' : 'none', color:"black" }}>
+      <div className="modal-dialog">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title">Confirm Booking</h5>
+            <button type="button" className="btn-close" onClick={handleCloseModal}></button>
+          </div>
+          <div  className="modal-body">
+            {selectedFlight && (
+              <>
+                <p>Airline: {selectedFlight.airline}</p>
+                <p>Flight Number: {selectedFlight.flightNumber}</p>
+                <p>From: {selectedFlight.from}</p>
+                <p>To: {selectedFlight.to}</p>
+                <p>Departure: {new Date(selectedFlight.departureTime).toLocaleString()}</p>
+                <p>Arrival: {new Date(selectedFlight.arrivalTime).toLocaleString()}</p>
+                <p>Price: ${selectedFlight.price}</p>
+                <p>Seats Available: {selectedFlight.seatsAvailable}</p>
+                <p>Seat Type: {selectedFlight.seatType}</p>
+                <p>Status: {selectedFlight.status}</p>
+              </>
+            )}
+          </div>
+          <div className="modal-footer">
+            <button type="button" className="btn btn-secondary" onClick={handleCloseModal}>Close</button>
+            <button type="button" className="btn btn-primary" onClick={handleConfirmBooking}>Confirm Booking</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
   return (
     <>
       <div className="container mt-5">
@@ -62,9 +136,7 @@ function Flights() {
           <div className="row">
             <div className="col-md-6 mb-3">
               <div style={translucent} className="card custom-card p-3">
-                <label htmlFor="from" className="form-label">
-                  From
-                </label>
+                <label htmlFor="from" className="form-label">From</label>
                 <input
                   type="text"
                   className="form-control custom-input"
@@ -90,9 +162,7 @@ function Flights() {
             </div>
             <div className="col-md-6 mb-3">
               <div style={translucent} className="card custom-card p-3">
-                <label htmlFor="to" className="form-label">
-                  To
-                </label>
+                <label htmlFor="to" className="form-label">To</label>
                 <input
                   type="text"
                   className="form-control custom-input"
@@ -236,7 +306,7 @@ function Flights() {
             <h3 className="text-center">Available Flights</h3>
             <div className="row">
               {flights.map((flight) => (
-                <div key={flight._id} className="col-md-4 mb-4">
+                <div key={flight._id} className="col-md-4 mb-4" onClick={() => handleBookFlight(flight)}>
                   <div className="card">
                     <div className="card-body">
                       <h5 className="card-title">{flight.airline}</h5>
@@ -276,7 +346,7 @@ function Flights() {
             </div>
             <div className="col-md-4 mb-4">
               <div className="card">
-                <img src="https://hblimg.mmtcdn.com/content/hubble/img/seo_img/mmt/activities/m_Radisson_blu_image_OM.jpg?im=Resize=(400,462)" className="card-img-top" alt="..." />
+                <img src="https://hblimg.mmtcdn.com/content/hubble/img/seo_img/mmt/activities/m_Radisson_blu_image_seo_l_550_821.jpg?im=Resize=(400,462)" className="card-img-top" alt="..." />
                 <div className="card-body">
                   <h5 className="card-title">Collection 2</h5>
                   <p className="card-text">Exclusive offers on luxury stays.</p>
@@ -286,7 +356,7 @@ function Flights() {
             </div>
             <div className="col-md-4 mb-4">
               <div className="card">
-                <img src="https://hblimg.mmtcdn.com/content/hubble/img/gangtok_hotels_tiow/mmt/activities/m_WelcomHeritage%20Panthanivas%20Satkosia%20-%20Twin%20Cottages%20with%20Terrace%20_%20Satkosia%20-%20Orissa_l_550_821.jpg?im=Resize=(400,462)" className="card-img-top" alt="..." />
+                <img src="https://hblimg.mmtcdn.com/content/hubble/img/bangalore_hotel_tiow/mmt/activities/m_Waterwoods%20Lodges%20&%20Resorts_Kabini_l_550_821.jpg?im=Resize=(400,462)" className="card-img-top" alt="..." />
                 <div className="card-body">
                   <h5 className="card-title">Collection 3</h5>
                   <p className="card-text">Discover budget-friendly travel options.</p>
@@ -297,6 +367,8 @@ function Flights() {
           </div>
         </div>
       </div>
+
+      {flightConfirmModal()}
     </>
   );
 }
