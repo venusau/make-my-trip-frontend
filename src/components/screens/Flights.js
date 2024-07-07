@@ -88,7 +88,7 @@ function Flights() {
       );
       console.log('Booking confirmed:', response.data);
       handleCloseModal();
-      navigate("/bookingSuccess"); // Redirect to a success page or show a success message
+      navigate("/userdashboard"); // Redirect to a success page or show a success message
     } catch (error) {
       console.log('Error confirming booking:', error);
     }
