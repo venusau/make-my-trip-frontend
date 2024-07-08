@@ -70,7 +70,7 @@ function Navbar() {
           className="container-fluid"
           style={{ display: "flex", justifyContent: "space-between" }}
         >
-            <NavLink className="navbar-brand" to="/">
+            <NavLink className="navbar-brand" to={state?"/":"/signin"}>
               <img
                 src="https://imgak.mmtcdn.com/pwa_v3/pwa_hotel_assets/header/mmtLogoWhite.png"
                 height="30vh"
