@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import BookingCard from "./cards/BookingCard";
+import BookingCard from "./cards/Bookingcard";
 import CancelBookingModal from "./modals/CancelBookingModal"; // Import the modal
 
 function Dashboard() {
