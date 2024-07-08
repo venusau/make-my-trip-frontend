@@ -3,6 +3,7 @@ import axios from "axios";
 import moment from "moment-timezone";
 import "./Flights.css"; // Import your CSS file for styles
 import { useNavigate } from "react-router-dom";
+import FlightModal from './modals/FlightModal'; // Import the FlightModal component
 
 function Flights() {
   const [from, setFrom] = useState("");
@@ -93,40 +94,6 @@ function Flights() {
       console.log('Error confirming booking:', error);
     }
   };
-  
-
-  const flightConfirmModal = () => (
-    <div  className={`modal ${showModal ? 'show' : ''}`} tabIndex="-1" style={{ display: showModal ? 'block' : 'none', color:"black" }}>
-      <div className="modal-dialog">
-        <div className="modal-content">
-          <div className="modal-header">
-            <h5 className="modal-title">Confirm Booking</h5>
-            <button type="button" className="btn-close" onClick={handleCloseModal}></button>
-          </div>
-          <div  className="modal-body">
-            {selectedFlight && (
-              <>
-                <p>Airline: {selectedFlight.airline}</p>
-                <p>Flight Number: {selectedFlight.flightNumber}</p>
-                <p>From: {selectedFlight.from}</p>
-                <p>To: {selectedFlight.to}</p>
-                <p>Departure: {new Date(selectedFlight.departureTime).toLocaleString()}</p>
-                <p>Arrival: {new Date(selectedFlight.arrivalTime).toLocaleString()}</p>
-                <p>Price: ${selectedFlight.price}</p>
-                <p>Seats Available: {selectedFlight.seatsAvailable}</p>
-                <p>Seat Type: {selectedFlight.seatType}</p>
-                <p>Status: {selectedFlight.status}</p>
-              </>
-            )}
-          </div>
-          <div className="modal-footer">
-            <button type="button" className="btn btn-secondary" onClick={handleCloseModal}>Close</button>
-            <button type="button" className="btn btn-primary" onClick={handleConfirmBooking}>Confirm Booking</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
 
   return (
     <>
@@ -207,160 +174,157 @@ function Flights() {
                 />
                 Round Trip
               </label>
-              <label>
-                <input
-                  type="radio"
-                  name="tripType"
-                  value="Multicity"
-                  checked={tripType === "Multicity"}
-                  onChange={() => setTripType("Multicity")}
-                />
-                Multicity
-              </label>
             </div>
             <div className="col-md-6 mb-3">
               <div style={translucent} className="card custom-card p-3">
-                <label htmlFor="departure-date" className="form-label">
-                  Departure Date
-                </label>
+                <label htmlFor="departureDate" className="form-label">Departure Date</label>
                 <input
-                  name="departure-date"
                   type="date"
-                  className="form-control"
+                  className="form-control custom-input"
+                  id="departureDate"
                   value={departureDate}
                   onChange={(e) => setDepartureDate(e.target.value)}
-                  required
                 />
-                <label htmlFor="departure-time" className="form-label mt-2">
-                  Departure Time
-                </label>
+                <label htmlFor="departureTime" className="form-label">Departure Time</label>
                 <input
-                  name="departure-time"
                   type="time"
-                  className="form-control"
+                  className="form-control custom-input"
+                  id="departureTime"
                   value={departureTime}
                   onChange={(e) => setDepartureTime(e.target.value)}
-                  required
                 />
               </div>
             </div>
             {tripType === "Round Trip" && (
               <div className="col-md-6 mb-3">
                 <div style={translucent} className="card custom-card p-3">
-                  <label htmlFor="return-date" className="form-label">
-                    Return Date
-                  </label>
+                  <label htmlFor="returnDate" className="form-label">Return Date</label>
                   <input
-                    name="return-date"
                     type="date"
-                    className="form-control"
+                    className="form-control custom-input"
+                    id="returnDate"
                     value={returnDate}
                     onChange={(e) => setReturnDate(e.target.value)}
-                    required
                   />
-                  <label htmlFor="return-time" className="form-label mt-2">
-                    Return Time
-                  </label>
+                  <label htmlFor="returnTime" className="form-label">Return Time</label>
                   <input
-                    name="return-time"
                     type="time"
-                    className="form-control"
+                    className="form-control custom-input"
+                    id="returnTime"
                     value={returnTime}
                     onChange={(e) => setReturnTime(e.target.value)}
-                    required
                   />
                 </div>
               </div>
             )}
-            <div className="col-md-4 mb-3">
+            <div className="col-md-6 mb-3">
               <div style={translucent} className="card custom-card p-3">
-                <label htmlFor="number-of-seats" className="form-label">
-                  Number of Seats
-                </label>
-                <select
-                  name="number-of-seats"
-                  className="form-control"
+                <label htmlFor="numberOfSeats" className="form-label">Number of Seats</label>
+                <input
+                  type="number"
+                  className="form-control custom-input"
+                  id="numberOfSeats"
                   value={numberOfSeats}
-                  onChange={(e) => setNumberOfSeats(e.target.value)}
-                  required
-                >
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                </select>
+                  min="1"
+                  onChange={(e) => setNumberOfSeats(parseInt(e.target.value))}
+                />
               </div>
             </div>
           </div>
 
           <div className="text-center mt-4">
-            <button type="submit" className="btn btn-primary">
-              Search Flights
-            </button>
+            <button type="submit" className="btn btn-primary custom-button">Search Flights</button>
           </div>
         </form>
-
-        {flights.length > 0 && (
-          <div className="mt-5">
-            <h3 className="text-center">Available Flights</h3>
-            <div className="row">
-              {flights.map((flight) => (
-                <div key={flight._id} className="col-md-4 mb-4" onClick={() => handleBookFlight(flight)}>
-                  <div className="card">
-                    <div className="card-body">
-                      <h5 className="card-title">{flight.airline}</h5>
-                      <p className="card-text">
-                        Flight Number: {flight.flightNumber}<br />
-                        From: {flight.from}<br />
-                        To: {flight.to}<br />
-                        Departure: {new Date(flight.departureTime).toLocaleString()}<br />
-                        Arrival: {new Date(flight.arrivalTime).toLocaleString()}<br />
-                        Price: ${flight.price}<br />
-                        Seats Available: {flight.seatsAvailable}<br />
-                        Seat Type: {flight.seatType}<br />
-                        Status: {flight.status}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
       </div>
 
+      <div className="container mt-5">
+        <h2 className="form-title text-center mb-4">Available Flights</h2>
+        <div className="row">
+          {flights.map((flight) => (
+            <div className="col-md-4 mb-4" key={flight._id}>
+              <div style={translucent} className="card custom-card p-3">
+                <h5 className="card-title">Flight Number: {flight.flightNumber}</h5>
+                <p className="card-text">Airline: {flight.airline}</p>
+                <p className="card-text">From: {flight.from}</p>
+                <p className="card-text">To: {flight.to}</p>
+                <p className="card-text">Departure Time: {new Date(flight.departureTime).toLocaleString()}</p>
+                <p className="card-text">Arrival Time: {new Date(flight.arrivalTime).toLocaleString()}</p>
+                <p className="card-text">Price: ${flight.price}</p>
+                <p className="card-text">Seats Available: {flight.seatsAvailable}</p>
+                <p className="card-text">Seat Type: {flight.seatType}</p>
+                <p className="card-text">Status: {flight.status}</p>
+                <button
+                  className="btn btn-primary custom-button"
+                  onClick={() => handleBookFlight(flight)}
+                >
+                  Book Now
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
       <div style={{ backgroundColor: "#dfdfdf" }}>
-        <div style={{ backgroundColor: "white" }} className="container rounded m">
-          <h1 className="form-title text-center my-5">Handpicked Collections for You</h1>
+        <div
+          style={{ backgroundColor: "white" }}
+          className="container rounded m"
+        >
+          <h1 className="form-title text-center my-5">
+            Handpicked Collections for You
+          </h1>
           <div className="row">
             <div className="col-md-4 mb-4">
               <div className="card">
-                <img src="https://hblimg.mmtcdn.com/content/hubble/img/delhi_hotels_tiow/mmt/activities/m_Le%20ROI%20Floating%20Huts_Eco%20Rooms_Tehri_Uttarakhand_l_550_821.jpg?im=Resize=(400,462)" className="card-img-top" alt="..." />
+                <img
+                  src="https://hblimg.mmtcdn.com/content/hubble/img/delhi_hotels_tiow/mmt/activities/m_Le%20ROI%20Floating%20Huts_Eco%20Rooms_Tehri_Uttarakhand_l_550_821.jpg?im=Resize=(400,462)"
+                  className="card-img-top"
+                  alt="..."
+                />
                 <div className="card-body">
                   <h5 className="card-title">Collection 1</h5>
-                  <p className="card-text">Explore amazing destinations and deals.</p>
-                  <a href="#" className="btn btn-primary">View Details</a>
+                  <p className="card-text">
+                    Explore amazing destinations and deals.
+                  </p>
+                  <a href="#" className="btn btn-primary">
+                    View Details
+                  </a>
                 </div>
               </div>
             </div>
             <div className="col-md-4 mb-4">
               <div className="card">
-                <img src="https://hblimg.mmtcdn.com/content/hubble/img/seo_img/mmt/activities/m_Radisson_blu_image_seo_l_550_821.jpg?im=Resize=(400,462)" className="card-img-top" alt="..." />
+                <img
+                  src="https://hblimg.mmtcdn.com/content/hubble/img/seo_img/mmt/activities/m_Radisson_blu_image_seo_l_550_821.jpg?im=Resize=(400,462)"
+                  className="card-img-top"
+                  alt="..."
+                />
                 <div className="card-body">
                   <h5 className="card-title">Collection 2</h5>
-                  <p className="card-text">Exclusive offers on luxury stays.</p>
-                  <a href="#" className="btn btn-primary">View Details</a>
+                  <p className="card-text">
+                    Exclusive offers on luxury stays.
+                  </p>
+                  <a href="#" className="btn btn-primary">
+                    View Details
+                  </a>
                 </div>
               </div>
             </div>
             <div className="col-md-4 mb-4">
               <div className="card">
-                <img src="https://hblimg.mmtcdn.com/content/hubble/img/bangalore_hotel_tiow/mmt/activities/m_Waterwoods%20Lodges%20&%20Resorts_Kabini_l_550_821.jpg?im=Resize=(400,462)" className="card-img-top" alt="..." />
+                <img
+                  src="https://hblimg.mmtcdn.com/content/hubble/img/bangalore_hotel_tiow/mmt/activities/m_Waterwoods%20Lodges%20&%20Resorts_Kabini_l_550_821.jpg?im=Resize=(400,462)"
+                  className="card-img-top"
+                  alt="..."
+                />
                 <div className="card-body">
                   <h5 className="card-title">Collection 3</h5>
-                  <p className="card-text">Discover budget-friendly travel options.</p>
-                  <a href="#" className="btn btn-primary">View Details</a>
+                  <p className="card-text">
+                    Discover budget-friendly travel options.
+                  </p>
+                  <a href="#" className="btn btn-primary">
+                    View Details
+                  </a>
                 </div>
               </div>
             </div>
@@ -368,7 +332,13 @@ function Flights() {
         </div>
       </div>
 
-      {flightConfirmModal()}
+      <FlightModal 
+        show={showModal} 
+        handleClose={handleCloseModal} 
+        flight={selectedFlight} 
+        numberOfSeats={numberOfSeats} 
+        handleConfirmBooking={handleConfirmBooking}
+      />
     </>
   );
 }

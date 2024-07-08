@@ -1,8 +1,9 @@
 import React from "react";
 import { format } from "date-fns";
+import PropTypes from 'prop-types';
 import "./BookingCard.css";
 
-function BookingCard({ booking }) {
+function BookingCard({ booking, onCancel }) {
   const { bookingType, bookingDate, ...details } = booking;
   const { flightDetails, hotelDetails } = details;
 
@@ -31,9 +32,17 @@ function BookingCard({ booking }) {
         <p className="card-text date">
           <small className="text-muted">{formattedBookingDate}</small>
         </p>
+        <button className="btn btn-danger" onClick={() => onCancel(booking)}>
+          Cancel Booking
+        </button>
       </div>
     </div>
   );
 }
+
+BookingCard.propTypes = {
+  booking: PropTypes.object.isRequired,
+  onCancel: PropTypes.func.isRequired,
+};
 
 export default BookingCard;
