@@ -7,6 +7,7 @@ import Flights from './components/screens/Flights'; // Adjust the import path as
 import Hotels from './components/screens/Hotels'; // Adjust the import path as necessary
 import Register from './components/screens/Register';
 import Signin from './components/screens/Signin';
+import Home from './components/screens/Home';
 import { useEffect } from 'react';
 import { useContext } from 'react';
 // import 'bootstrap/dist/css/bootstrap.min.css';
@@ -30,6 +31,7 @@ function Routing(){
 
   return (
     <Routes>
+        <Route path="/"  element={<Home/>} />
         <Route path="/userdashboard"  element={<Dashboard/>} />
         <Route path="/flights" element={<Flights/>} />
         <Route path="/hotels" element={<Hotels/>} />
@@ -47,7 +49,7 @@ function App() {
       <Navbar />
       
       <Routing/>
-      {/* <Footer/> */}
+      <Footer/>
     </Router>
     </>
   );

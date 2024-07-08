@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './FlightModal.css'; // Import the CSS file for styling
+import '../css/FlightModal.css'; // Import the CSS file for styling
 
 const FlightModal = ({ show, handleClose, flight, numberOfSeats, handleConfirmBooking }) => {
   return (

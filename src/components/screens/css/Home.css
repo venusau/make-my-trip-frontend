@@ -1,0 +1,67 @@
+/* Home.css */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .navbar .logo {
+    height: 50px;
+  }
+  
+  .hero-section {
+    background: url('https://elnor.education/wp-content/uploads/2022/02/hero-bg.jpg') no-repeat center center/cover;
+    color: white;
+    padding: 150px 0;
+  }
+  
+  .hero-title {
+    font-size: 3rem;
+    font-weight: bold;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+  }
+  
+  .services-section .section-title {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .services-section .section-subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+  }
+  
+  .service-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: transform 0.3s;
+  }
+  
+  .service-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .service-icon {
+    height: 80px;
+  }
+  
+  .service-title {
+    font-size: 1.5rem;
+    margin-top: 10px;
+  }
+  
+  .service-description {
+    font-size: 1rem;
+    color: #666;
+  }
+  
+  .footer {
+    background: #f8f9fa;
+    color: #666;
+  }
+  

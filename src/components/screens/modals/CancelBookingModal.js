@@ -1,5 +1,5 @@
 import React from 'react';
-import './CancelBookingModal.css'; // Create a CSS file for modal styling
+import '../css/CancelBookingModal.css'; // Create a CSS file for modal styling
 
 const CancelBookingModal = ({ show, handleClose, booking, handleConfirmCancel }) => {
   return (

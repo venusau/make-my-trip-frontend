@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import moment from "moment-timezone";
-import "./Flights.css"; // Import your CSS file for styles
+import "./css/Flights.css"; // Import your CSS file for styles
 import { useNavigate } from "react-router-dom";
 import FlightModal from './modals/FlightModal'; // Import the FlightModal component
 
