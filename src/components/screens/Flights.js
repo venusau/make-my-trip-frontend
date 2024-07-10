@@ -82,9 +82,9 @@ function Flights() {
         },
         {
           headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('jwt')}`
-          }
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${localStorage.getItem("jwt")}`,
+          },
         }
       );
       console.log('Booking confirmed:', response.data);
