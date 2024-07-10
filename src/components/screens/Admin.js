@@ -88,7 +88,7 @@ const Admin = () => {
       updatedAt: new Date().toISOString()
     };
     try {
-      await axios.post('http://localhost:5500/api/flight', formattedFlight, {
+      await axios.post('https://make-my-trip-backend.onrender.com/api/flight', formattedFlight, {
         headers: {
           'Content-Type': 'application/json',
           "Authorization": `Bearer ${localStorage.getItem("jwt")}`
