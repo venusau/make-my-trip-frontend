@@ -29,6 +29,11 @@ function Navbar() {
               Hotels
             </NavLink>
           </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/admin">
+              Admin Panel
+            </NavLink>
+          </li>
           <li className="nav-item ">
             <div className="btn border rounded-pill text-end">
               <button

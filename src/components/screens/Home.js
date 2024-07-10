@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import "./css/Home.css";
 import { Link } from "react-router-dom";
-
+import { UserContext } from "../../context";
+import { useContext } from "react";
 function Home() {
+    const {state, dispatch} = useContext(UserContext)
+    const [route, setRoute] = useState("/signin")
+    
   return (
     <>
       
@@ -12,10 +16,10 @@ function Home() {
           <p className="hero-subtitle">
             Book flights and hotels at the best prices.
           </p>
-          <Link className="btn btn-primary btn-lg" to="/flights">
+          <Link className="btn btn-primary btn-lg" to={state?"/flights":route}>
             Book a Flight
           </Link>
-          <Link className="btn btn-secondary btn-lg ms-3" to="/hotels">
+          <Link className="btn btn-secondary btn-lg ms-3" to={state?"/hotels":route}>
             Book a Hotel
           </Link>
         </div>

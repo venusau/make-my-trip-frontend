@@ -13,6 +13,7 @@ import { useContext } from 'react';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import "./App.css"
 import Footer from './components/Footer';
+import Admin from './components/screens/Admin';
 
 
 
@@ -37,6 +38,7 @@ function Routing(){
         <Route path="/hotels" element={<Hotels/>} />
         <Route path="/signin" element={<Signin/>} />
         <Route path="/register" element={<Register/>} />
+        <Route path="/admin" element={<Admin/>}/>
       </Routes>
   );
 }
