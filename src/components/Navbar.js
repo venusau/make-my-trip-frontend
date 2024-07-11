@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { UserContext } from "../context";
+import "./Navbar.css"
 
 function Navbar() {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -17,7 +18,7 @@ function Navbar() {
           }
         });
         const data = await response.json();
-        console.log(data)
+        console.log(data);
         setIsAdmin(data.isAdmin);
       } catch (error) {
         console.error("Error checking admin status:", error);
@@ -34,17 +35,37 @@ function Navbar() {
       return (
         <>
           <li className="nav-item">
-            <NavLink className="nav-link" to="/userdashboard">Dashboard</NavLink>
+            <NavLink
+              className={({ isActive }) => "nav-link" + (isActive ? " active" : "")}
+              to="/userdashboard"
+            >
+              Dashboard
+            </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink className="nav-link" to="/flights">Flights</NavLink>
+            <NavLink
+              className={({ isActive }) => "nav-link" + (isActive ? " active" : "")}
+              to="/flights"
+            >
+              Flights
+            </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink className="nav-link" to="/hotels">Hotels</NavLink>
+            <NavLink
+              className={({ isActive }) => "nav-link" + (isActive ? " active" : "")}
+              to="/hotels"
+            >
+              Hotels
+            </NavLink>
           </li>
           {isAdmin && (
             <li className="nav-item">
-              <NavLink className="nav-link" to="/admin">Admin Panel</NavLink>
+              <NavLink
+                className={({ isActive }) => "nav-link" + (isActive ? " active" : "")}
+                to="/admin"
+              >
+                Admin Panel
+              </NavLink>
             </li>
           )}
           <li className="nav-item">
@@ -68,10 +89,20 @@ function Navbar() {
       return (
         <>
           <li className="nav-item">
-            <NavLink className="nav-link active" to="/signin">Signin</NavLink>
+            <NavLink
+              className={({ isActive }) => "nav-link" + (isActive ? " active" : "")}
+              to="/signin"
+            >
+              Signin
+            </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink className="nav-link" to="/register">Register</NavLink>
+            <NavLink
+              className={({ isActive }) => "nav-link" + (isActive ? " active" : "")}
+              to="/register"
+            >
+              Register
+            </NavLink>
           </li>
         </>
       );

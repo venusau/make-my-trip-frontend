@@ -1,19 +1,19 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 import { UserContext } from "./context";
-import Navbar from './components/Navbar'; // Adjust the import path as necessary
-import Dashboard from "./components/screens/Dashboard"; // Adjust the import path as necessary
-import Flights from './components/screens/Flights'; // Adjust the import path as necessary
-import Hotels from './components/screens/Hotels'; // Adjust the import path as necessary
+import Navbar from './components/Navbar'; 
+import Dashboard from "./components/screens/Dashboard"; 
+import Flights from './components/screens/Flights'; 
+import Hotels from './components/screens/Hotels'; 
 import Register from './components/screens/Register';
 import Signin from './components/screens/Signin';
 import Home from './components/screens/Home';
 import { useEffect } from 'react';
 import { useContext } from 'react';
-// import 'bootstrap/dist/css/bootstrap.min.css';
 import "./App.css"
 import Footer from './components/Footer';
 import Admin from './components/screens/Admin';
+
 
 
 
