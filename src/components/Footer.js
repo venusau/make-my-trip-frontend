@@ -46,13 +46,13 @@ function Footer() {
           <div className="col-md-3 col-sm-6">
             <h5 className="text-uppercase mb-4 font-weight-bold">Contact</h5>
             <p>
-              <i className="fas fa-home mr-3">P-47, Udayan Abasan, Udayrajpur, Madhyamgram</i> 
+              P-47, Udayan Abasan, Udayrajpur, Madhyamgram
             </p>
             <p>
-              <i className="fas fa-envelope mr-3">vickybhattacharya19@gmail.com</i> 
+             vickybhattacharya19@gmail.com
             </p>
             <p>
-              <i className="fas fa-phone mr-3"></i> +91-8240294682
+              +91-8240294682
             </p>
             
           </div>
