@@ -6,9 +6,7 @@ body {
     box-sizing: border-box;
   }
   
-  .navbar .logo {
-    height: 50px;
-  }
+  
   
   .hero-section {
     background: url('https://elnor.education/wp-content/uploads/2022/02/hero-bg.jpg') no-repeat center center/cover;
