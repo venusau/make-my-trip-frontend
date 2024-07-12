@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import "./Footer.css";
+
 
 function Footer() {
   return (
@@ -36,7 +36,10 @@ function Footer() {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="https://www.linkedin.com/in/vicky-bhattacharya-98535725b/" className="text-light">
+                <NavLink
+                  to="https://www.linkedin.com/in/vicky-bhattacharya-98535725b/"
+                  className="text-light"
+                >
                   Contact Us
                 </NavLink>
               </li>
@@ -45,46 +48,38 @@ function Footer() {
 
           <div className="col-md-3 col-sm-6">
             <h5 className="text-uppercase mb-4 font-weight-bold">Contact</h5>
-            <p>
-              P-47, Udayan Abasan, Udayrajpur, Madhyamgram
-            </p>
-            <p>
-             vickybhattacharya19@gmail.com
-            </p>
-            <p>
-              +91-8240294682
-            </p>
-            
+            <p>P-47, Udayan Abasan, Udayrajpur, Madhyamgram</p>
+            <p>vickybhattacharya19@gmail.com</p>
+            <p>+91-8240294682</p>
           </div>
 
           {/* Social Media Section */}
           <div className="col-md-3 col-sm-6">
             <h5 className="text-uppercase mb-4 font-weight-bold">Follow Us</h5>
-            <ul className="list-unstyled d-flex justify-content-start">
+            <ul className="list-unstyled d-flex justify-content-start" style={{gap:"1rem"}}>
               <li>
-                <NavLink to="#!" className="text-light mr-3">
-                  <i className="fab fa-facebook-f"></i>
+                <NavLink to="https://github.com/venusau" className="text-light mr-3">
+                <i class="fa-brands fa-github"></i>
                 </NavLink>
               </li>
               <li>
-                <NavLink to="#!" className="text-light mr-3">
-                  <i className="fab fa-twitter"></i>
+                <NavLink to="https://x.com/dj_Vb_rocks4" className="text-light mr-3">
+                  <i class="fa-brands fa-x-twitter"></i>
                 </NavLink>
               </li>
               <li>
-                <NavLink to="#!" className="text-light mr-3">
+                <NavLink to="https://www.instagram.com/vicky.bhattacharya/" className="text-light mr-3">
                   <i className="fab fa-instagram"></i>
                 </NavLink>
               </li>
               <li>
-                <NavLink to="#!" className="text-light mr-3">
+                <NavLink to="https://www.linkedin.com/in/vicky-bhattacharya-98535725b/" className="text-light mr-3">
                   <i className="fab fa-linkedin-in"></i>
                 </NavLink>
               </li>
             </ul>
           </div>
         </div>
-        
       </div>
     </footer>
   );
