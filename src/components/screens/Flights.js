@@ -98,7 +98,7 @@ function Flights() {
   return (
     <>
       <div className="container mt-5">
-        <h2 className="form-title text-center mb-4">Book Your Flight</h2>
+        <h2 style={{color:"white"}} className="form-title text-center mb-4">Book Your Flight</h2>
         <form onSubmit={handleSearch}>
           <div className="row">
             <div className="col-md-6 mb-3">
@@ -237,9 +237,9 @@ function Flights() {
           </div>
         </form>
       </div>
-
+{flights.length >0 &&
       <div className="container mt-5">
-        <h2 className="form-title text-center mb-4">Available Flights</h2>
+        <h2 style={{color:"white"}} className="form-title text-center mb-4">Available Flights</h2>
         <div className="row">
           {flights.map((flight) => (
             <div className="col-md-4 mb-4" key={flight._id}>
@@ -264,7 +264,7 @@ function Flights() {
             </div>
           ))}
         </div>
-      </div>
+      </div>}
       <div style={{ backgroundColor: "#dfdfdf" }}>
         <div
           style={{ backgroundColor: "white" }}

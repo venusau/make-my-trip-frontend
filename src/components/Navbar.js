@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { UserContext } from "../context";
-import "./Navbar.css"
+
 
 function Navbar() {
   const [isAdmin, setIsAdmin] = useState(false);

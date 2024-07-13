@@ -53,7 +53,7 @@ function Hotels() {
   return (
     <>
       <div className="container mt-5">
-        <h2 className="form-title text-center mb-4">Book Your Hotel</h2>
+        <h2 style={{color:"white"}} className="form-title text-center mb-4">Book Your Hotel</h2>
         <form onSubmit={handleSearch}>
           <div className="row">
             <div className="col-md-6 mb-3">

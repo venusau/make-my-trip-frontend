@@ -1,24 +1,13 @@
 import { useState } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import Toast from "react-bootstrap/Toast";
-import ToastContainer from "react-bootstrap/ToastContainer";
 import { useNavigate } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Toast, ToastContainer } from "react-bootstrap";
 
-function Notification({ show, onClose, message }) {
+function Notification({ onClose, show, message, bgType }) {
   return (
-    <Toast
-      show={show}
-      onClose={onClose}
-      className="alert alert-danger"
-      style={{
-        position: "fixed",
-        top: "10px",
-        right: "10px",
-        zIndex: 9999,
-      }}
-    >
+    <Toast show={show} onClose={onClose} bg={bgType} delay={3000} autohide>
       <Toast.Header>
-        <strong className="mr-auto">Notification</strong>
+        <strong className="me-auto">Notification</strong>
       </Toast.Header>
       <Toast.Body>{message}</Toast.Body>
     </Toast>
@@ -31,12 +20,16 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastBgType, setToastBgType] = useState("danger");
+  const handleToastClose = () => setShowToast(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!name || !email || !password) {
-      alert("Please add all the fields");
+      setToastMessage("Please fill in all fields.");
+      setShowToast(true);
       return;
     }
 
@@ -45,22 +38,25 @@ function Register() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        name,
-        email,
-        password,
-      }),
+      body: JSON.stringify({ name, email, password }),
     })
       .then((response) => response.json())
       .then((data) => {
         if (data.message) {
-          alert(data.message);
-          navigate("/signin");
+          setToastMessage(data.message);
+          setToastBgType("success");
+          setShowToast(true);
+          setTimeout(() => navigate("/signin"), 2000);
         } else {
-          alert(data.error);
+          setToastMessage(data.error);
+          setToastBgType("danger");
+          setShowToast(true);
         }
       })
       .catch((err) => {
+        setToastMessage("An error occurred. Please try again.");
+        setToastBgType("danger");
+        setShowToast(true);
         console.log(err);
       });
   };
@@ -79,7 +75,7 @@ function Register() {
           borderRadius: "10px",
           backdropFilter: "blur(5px)",
           backgroundColor: "rgba(255, 255, 255, 0.0)",
-          boxShadow: "100px 100px auto auto rgba(0, 0, 0, 0.5)",
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.5)",
         }}
       >
         <form onSubmit={handleSubmit}>
@@ -137,6 +133,14 @@ function Register() {
           </button>
         </form>
       </div>
+      <ToastContainer position="top-end" className="p-3">
+        <Notification
+          show={showToast}
+          onClose={handleToastClose}
+          message={toastMessage}
+          bgType={toastBgType}
+        />
+      </ToastContainer>
     </div>
   );
 }

@@ -29,18 +29,26 @@ function Routing(){
       navigate("/signin");
     }
   }, []);
-
+if(JSON.parse(localStorage.getItem("user"))){
   return (
     <Routes>
         <Route path="/"  element={<Home/>} />
         <Route path="/userdashboard"  element={<Dashboard/>} />
         <Route path="/flights" element={<Flights/>} />
         <Route path="/hotels" element={<Hotels/>} />
-        <Route path="/signin" element={<Signin/>} />
-        <Route path="/register" element={<Register/>} />
+        
         <Route path="/admin" element={<Admin/>}/>
       </Routes>
   );
+}
+  else{
+    return(
+      <Routes>
+        <Route path="/signin" element={<Signin/>} />
+        <Route path="/register" element={<Register/>} />
+      </Routes>
+    )
+  }
 }
 
 function App() {

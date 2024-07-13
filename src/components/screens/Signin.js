@@ -2,30 +2,16 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context";
 import { useContext } from "react";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Toast from 'react-bootstrap/Toast';
-import ToastContainer from 'react-bootstrap/ToastContainer';
 
+import Toast from "react-bootstrap/Toast";
+import ToastContainer from "react-bootstrap/ToastContainer";
 
-
-function Notification({ show, onClose, message }) {
+function Notification({ show, onClose, message, bgType }) {
   return (
-    <Toast
-      show={show}
-      onClose={onClose}
-      className="alert alert-danger"
-      style={{
-        color:"red",
-        position: 'fixed',
-        top: '10px',
-        right: '10px',
-        zIndex: 9999,
-        backgroundColor:"rgba()"
-      }}
-    >
+    <Toast show={show} onClose={onClose} bg={bgType} delay={3000} autohide>
       <Toast.Header>
+        <strong className="me-auto">Notification</strong>
       </Toast.Header>
-      
       <Toast.Body>{message}</Toast.Body>
     </Toast>
   );
@@ -38,6 +24,8 @@ function Signin() {
   const [password, setPassword] = useState("");
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
+
+  const [toastBgType, setToastBgType] = useState("danger");
 
   const handleToastClose = () => setShowToast(false);
 
@@ -74,12 +62,16 @@ function Signin() {
           dispatch({ type: "USER", payload: data.user });
           setToastMessage("You're signed in");
           setShowToast(true);
-          navigate("/flights");
+          setToastBgType("success");
+          setTimeout(() => {
+            navigate("/flights");
+          }, 2000);
         }
       })
       .catch((err) => {
         console.error("Error:", err.message || err);
         setToastMessage(err.message || "An error occurred. Please try again.");
+        setToastBgType("danger");
         setShowToast(true);
       });
   };
@@ -143,6 +135,7 @@ function Signin() {
           show={showToast}
           onClose={handleToastClose}
           message={toastMessage}
+          bgType={toastBgType}
         />
       </ToastContainer>
     </div>
