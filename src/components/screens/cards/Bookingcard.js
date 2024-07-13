@@ -1,7 +1,7 @@
 import React from "react";
 import { format } from "date-fns";
 import PropTypes from 'prop-types';
-import "../css/BookingCard.css";
+
 
 function BookingCard({ booking, onCancel }) {
   const { bookingType, bookingDate, ...details } = booking;
