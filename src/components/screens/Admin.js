@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import moment from 'moment-timezone';
-import './css/Admin.css'; // Make sure to create and import your CSS file for custom styles
+import './css/Admin.css'; 
 
 const Admin = () => {
   const [flights, setFlights] = useState([]);
@@ -158,64 +158,77 @@ const Admin = () => {
     <div className="container mt-5">
       <h1 className="text-center mb-4">Admin Panel</h1>
       
-      <div className="row">
-        <div className="col-md-12 mb-4">
-          <div className="card">
-            <div className="card-header">
-              <h2>Manage Flights</h2>
+      
+      <div className="container my-5">
+  <div className="col-md-12 mb-4">
+    <div className="card shadow">
+      <div className="card-header bg-primary text-white">
+        <h2 className="mb-0">Manage Flights</h2>
+      </div>
+      <div className="card-body">
+        <h3 className="mb-4">Add New Flight</h3>
+        <form onSubmit={handleFlightSubmit}>
+          <div className="row">
+            <div className="col-md-6 mb-3">
+              <label className="form-label">Flight Number</label>
+              <input type="text" className="form-control" name="flightNumber" value={newFlight.flightNumber} onChange={(e) => handleInputChange(e, setNewFlight)} />
             </div>
-            <div className="card-body">
-              <h3 className="mb-3">Add New Flight</h3>
-              <form onSubmit={handleFlightSubmit}>
-                <div className="mb-3">
-                  <label className="form-label">Flight Number</label>
-                  <input type="text" className="form-control" name="flightNumber" value={newFlight.flightNumber} onChange={(e) => handleInputChange(e, setNewFlight)} />
-                </div>
-                <div className="mb-3">
-                  <label className="form-label">Airline</label>
-                  <input type="text" className="form-control" name="airline" value={newFlight.airline} onChange={(e) => handleInputChange(e, setNewFlight)} />
-                </div>
-                <div className="mb-3">
-                  <label className="form-label">From</label>
-                  <input type="text" className="form-control" name="from" value={newFlight.from} onChange={(e) => handleInputChange(e, setNewFlight)} />
-                </div>
-                <div className="mb-3">
-                  <label className="form-label">To</label>
-                  <input type="text" className="form-control" name="to" value={newFlight.to} onChange={(e) => handleInputChange(e, setNewFlight)} />
-                </div>
-                <div className="mb-3">
-                  <label className="form-label">Departure Time</label>
-                  <input type="datetime-local" className="form-control" name="departureTime" value={newFlight.departureTime} onChange={(e) => handleInputChange(e, setNewFlight)} />
-                </div>
-                <div className="mb-3">
-                  <label className="form-label">Arrival Time</label>
-                  <input type="datetime-local" className="form-control" name="arrivalTime" value={newFlight.arrivalTime} onChange={(e) => handleInputChange(e, setNewFlight)} />
-                </div>
-                <div className="mb-3">
-                  <label className="form-label">Duration</label>
-                  <input type="text" className="form-control" name="duration" value={newFlight.duration} onChange={(e) => handleInputChange(e, setNewFlight)} />
-                </div>
-                <div className="mb-3">
-                  <label className="form-label">Price</label>
-                  <input type="number" className="form-control" name="price" value={newFlight.price} onChange={(e) => handleInputChange(e, setNewFlight)} />
-                </div>
-                <div className="mb-3">
-                  <label className="form-label">Seats Available</label>
-                  <input type="number" className="form-control" name="seatsAvailable" value={newFlight.seatsAvailable} onChange={(e) => handleInputChange(e, setNewFlight)} />
-                </div>
-                <div className="mb-3">
-                  <label className="form-label">Seat Type</label>
-                  <select className="form-control" name="seatType" value={newFlight.seatType} onChange={(e) => handleInputChange(e, setNewFlight)}>
-                    <option>Economy</option>
-                    <option>Business</option>
-                    <option>First</option>
-                  </select>
-                </div>
-                <button type="submit" className="btn btn-primary">Add Flight</button>
-              </form>
+            <div className="col-md-6 mb-3">
+              <label className="form-label">Airline</label>
+              <input type="text" className="form-control" name="airline" value={newFlight.airline} onChange={(e) => handleInputChange(e, setNewFlight)} />
             </div>
           </div>
-        </div>
+          <div className="row">
+            <div className="col-md-6 mb-3">
+              <label className="form-label">From</label>
+              <input type="text" className="form-control" name="from" value={newFlight.from} onChange={(e) => handleInputChange(e, setNewFlight)} />
+            </div>
+            <div className="col-md-6 mb-3">
+              <label className="form-label">To</label>
+              <input type="text" className="form-control" name="to" value={newFlight.to} onChange={(e) => handleInputChange(e, setNewFlight)} />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-6 mb-3">
+              <label className="form-label">Departure Time</label>
+              <input type="datetime-local" className="form-control" name="departureTime" value={newFlight.departureTime} onChange={(e) => handleInputChange(e, setNewFlight)} />
+            </div>
+            <div className="col-md-6 mb-3">
+              <label className="form-label">Arrival Time</label>
+              <input type="datetime-local" className="form-control" name="arrivalTime" value={newFlight.arrivalTime} onChange={(e) => handleInputChange(e, setNewFlight)} />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-6 mb-3">
+              <label className="form-label">Duration</label>
+              <input type="text" className="form-control" name="duration" value={newFlight.duration} onChange={(e) => handleInputChange(e, setNewFlight)} />
+            </div>
+            <div className="col-md-6 mb-3">
+              <label className="form-label">Price</label>
+              <input type="number" className="form-control" name="price" value={newFlight.price} onChange={(e) => handleInputChange(e, setNewFlight)} />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-6 mb-3">
+              <label className="form-label">Seats Available</label>
+              <input type="number" className="form-control" name="seatsAvailable" value={newFlight.seatsAvailable} onChange={(e) => handleInputChange(e, setNewFlight)} />
+            </div>
+            <div className="col-md-6 mb-3">
+              <label className="form-label">Seat Type</label>
+              <select className="form-control" name="seatType" value={newFlight.seatType} onChange={(e) => handleInputChange(e, setNewFlight)}>
+                <option>Economy</option>
+                <option>Business</option>
+                <option>First</option>
+              </select>
+            </div>
+          </div>
+          <button type="submit" className="btn btn-primary w-100">Add Flight</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 
         <div className="col-md-12 mb-4">
           <div className="card">
@@ -303,7 +316,7 @@ const Admin = () => {
             </div>
           </div>
         </div>
-      </div>
+      
 
       <div className="row mt-4">
         <div className="col-md-6">

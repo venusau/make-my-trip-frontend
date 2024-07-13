@@ -64,7 +64,7 @@ function Signin() {
           setShowToast(true);
           setToastBgType("success");
           setTimeout(() => {
-            navigate("/flights");
+            navigate("/");
           }, 2000);
         }
       })

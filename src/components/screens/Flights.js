@@ -43,7 +43,7 @@ function Flights() {
         returnTime: formattedReturnDateTime,
         seats: numberOfSeats,
       }).toString();
-
+      console.log(`https://make-my-trip-backend.onrender.com/api/flight?${queryParams}`)
       const response = await axios.get(`https://make-my-trip-backend.onrender.com/api/flight?${queryParams}`, {
         headers: {
           "Content-Type": "application/json",

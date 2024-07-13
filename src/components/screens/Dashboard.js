@@ -22,6 +22,7 @@ function Dashboard() {
   }, []);
 
   const handleCancelBooking = (booking) => {
+    console.log('Selected booking:', JSON.stringify(booking, null, 2));
     setSelectedBooking(booking);
     setShowModal(true);
   };

@@ -13,6 +13,8 @@ function Hotels() {
   const [showModal, setShowModal] = useState(false); // State to manage modal visibility
   const navigate = useNavigate();
 
+  const translucent = { backdropFilter: 'blur(1px)', backgroundColor: 'rgba(255, 255, 255, 0.5)', boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 8px' }
+
   const handleSearch = async (e) => {
     e.preventDefault();
     try {
@@ -53,11 +55,16 @@ function Hotels() {
   return (
     <>
       <div className="container mt-5">
-        <h2 style={{color:"white"}} className="form-title text-center mb-4">Book Your Hotel</h2>
+        <h2 style={{ color: "white" }} className="form-title text-center mb-4">
+          Book Your Hotel
+        </h2>
         <form onSubmit={handleSearch}>
           <div className="row">
             <div className="col-md-6 mb-3">
-              <div className="card custom-card p-3">
+              <div
+                style={translucent}
+                className="card custom-card p-3"
+              >
                 <label htmlFor="city" className="form-label">
                   City
                 </label>
@@ -88,8 +95,8 @@ function Hotels() {
 
           <div className="row">
             <div className="col-md-6 mb-3">
-              <div className="card custom-card p-3">
-                <label htmlFor="checkInDate" className="form-label">
+              <div style={translucent} className="card custom-card p-3">
+                <label  htmlFor="checkInDate" className="form-label">
                   Check-In Date
                 </label>
                 <input
@@ -102,7 +109,7 @@ function Hotels() {
               </div>
             </div>
             <div className="col-md-6 mb-3">
-              <div className="card custom-card p-3">
+              <div style={translucent} className="card custom-card p-3">
                 <label htmlFor="checkOutDate" className="form-label">
                   Check-Out Date
                 </label>
@@ -202,9 +209,7 @@ function Hotels() {
                 />
                 <div className="card-body">
                   <h5 className="card-title">Collection 2</h5>
-                  <p className="card-text">
-                    Exclusive offers on luxury stays.
-                  </p>
+                  <p className="card-text">Exclusive offers on luxury stays.</p>
                   <a href="#" className="btn btn-primary">
                     View Details
                   </a>
