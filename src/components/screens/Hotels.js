@@ -2,7 +2,21 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./css/Hotels.css";
 import { useNavigate } from "react-router-dom";
-import HotelModal from "./modals/HotelModal"; // Import the HotelModal component
+import HotelModal from "./modals/HotelModal"; 
+
+import Toast from "react-bootstrap/Toast";
+import ToastContainer from "react-bootstrap/ToastContainer";
+
+function Notification({ show, onClose, message, bgType }) {
+  return (
+    <Toast show={show} onClose={onClose} bg={bgType} delay={3000} autohide>
+      <Toast.Header>
+        <strong className="me-auto">Notification</strong>
+      </Toast.Header>
+      <Toast.Body>{message}</Toast.Body>
+    </Toast>
+  );
+}
 
 function Hotels() {
   const [city, setCity] = useState("");
@@ -12,6 +26,13 @@ function Hotels() {
   const [selectedHotel, setSelectedHotel] = useState(null); // State to manage the selected hotel
   const [showModal, setShowModal] = useState(false); // State to manage modal visibility
   const navigate = useNavigate();
+
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+
+  const [toastBgType, setToastBgType] = useState("danger");
+
+  const handleToastClose = () => setShowToast(false);
 
   const translucent = { backdropFilter: 'blur(1px)', backgroundColor: 'rgba(255, 255, 255, 0.5)', boxShadow: 'rgba(0, 0, 0, 0.1) 0px 4px 8px' }
 
@@ -23,9 +44,7 @@ function Hotels() {
         checkInDate,
         checkOutDate,
       }).toString();
-      console.log(
-        `https://make-my-trip-backend.onrender.com/api/hotel?${queryParams}`
-      );
+      
       const response = await axios.get(
         `https://make-my-trip-backend.onrender.com/api/hotel?${queryParams}`,
         {
@@ -55,6 +74,17 @@ function Hotels() {
   return (
     <>
       <div className="container mt-5">
+      <ToastContainer
+      className="position-fixed top-0 end-0 p-3"
+      style={{ zIndex: 1050 }}
+    >
+      <Notification
+        show={showToast}
+        onClose={handleToastClose}
+        message={toastMessage}
+        bgType={toastBgType}
+      />
+    </ToastContainer>
         <h2 style={{ color: "white" }} className="form-title text-center mb-4">
           Book Your Hotel
         </h2>
