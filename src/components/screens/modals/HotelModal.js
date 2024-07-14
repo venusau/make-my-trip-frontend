@@ -46,7 +46,7 @@ const HotelModal = ({ show, handleClose, hotel }) => {
   };
 
   return (
-    <Modal size="lg" show={show} onHide={handleClose}>
+    <Modal size="lg" show={show} onHide={handleClose} style={{color:"black"}}>
       <Modal.Header closeButton>
         <Modal.Title>{hotel.name} - Booking Details</Modal.Title>
       </Modal.Header>

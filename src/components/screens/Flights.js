@@ -250,7 +250,7 @@ function Flights() {
                 <p className="card-text">To: {flight.to}</p>
                 <p className="card-text">Departure Time: {new Date(flight.departureTime).toLocaleString()}</p>
                 <p className="card-text">Arrival Time: {new Date(flight.arrivalTime).toLocaleString()}</p>
-                <p className="card-text">Price: ${flight.price}</p>
+                <p className="card-text">Price: ₹{flight.price}</p>
                 <p className="card-text">Seats Available: {flight.seatsAvailable}</p>
                 <p className="card-text">Seat Type: {flight.seatType}</p>
                 <p className="card-text">Status: {flight.status}</p>
