@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/make-my-trip-frontend/static/css/main.8836af2d.css",
+    "main.js": "/make-my-trip-frontend/static/js/main.758480db.js",
+    "static/js/453.419a5d54.chunk.js": "/make-my-trip-frontend/static/js/453.419a5d54.chunk.js",
+    "index.html": "/make-my-trip-frontend/index.html",
+    "main.8836af2d.css.map": "/make-my-trip-frontend/static/css/main.8836af2d.css.map",
+    "main.758480db.js.map": "/make-my-trip-frontend/static/js/main.758480db.js.map",
+    "453.419a5d54.chunk.js.map": "/make-my-trip-frontend/static/js/453.419a5d54.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.8836af2d.css",
+    "static/js/main.758480db.js"
+  ]
+}
