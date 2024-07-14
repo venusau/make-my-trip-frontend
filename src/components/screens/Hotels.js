@@ -39,8 +39,9 @@ function Hotels() {
   const handleSearch = async (e) => {
     e.preventDefault();
     try {
+      const trimmedCity = city.trim()
       const queryParams = new URLSearchParams({
-        city,
+        city:trimmedCity,
         checkInDate,
         checkOutDate,
       }).toString();
@@ -58,6 +59,7 @@ function Hotels() {
       setHotels(response.data.hotels);
     } catch (error) {
       console.log("Error fetching hotels:", error);
+      
     }
   };
 
