@@ -1,44 +1,58 @@
-import React, { useState, useEffect } from 'react';
-import { Modal, Button, Form, Row, Col } from 'react-bootstrap';
+import React, { useState, useEffect } from "react";
+import { Modal, Button, Form, Row, Col } from "react-bootstrap";
 
-function UpdateHotelModal({ hotel, show, handleClose, handleUpdate }) {
-  const [updatedHotel, setUpdatedHotel] = useState({});
+const UpdateHotelModal = ({ show, handleClose, hotel, handleUpdate }) => {
+  const [updateHotel, setUpdateHotel] = useState(null);
 
   useEffect(() => {
     if (hotel) {
-      setUpdatedHotel({
-        ...hotel,
-        
-      });
+      setUpdateHotel(hotel);
     }
   }, [hotel]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setUpdatedHotel(prev => ({ ...prev, [name]: value }));
+    setUpdateHotel((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
-  const handleSubmit = (e) => {
+  const handleAmenitiesChange = (e) => {
+    const { checked, value } = e.target;
+    setUpdateHotel((prevState) => ({
+      ...prevState,
+      amenities: checked
+        ? [...prevState.amenities, value]
+        : prevState.amenities.filter((amenity) => amenity !== value),
+    }));
+  };
+
+  const handleHotelSubmit = (e) => {
     e.preventDefault();
-    handleUpdate(updatedHotel);
+    handleUpdate(updateHotel);
     handleClose();
   };
+
+  if (!updateHotel) {
+    return null; // Or you could return a loading spinner here
+  }
 
   return (
     <Modal show={show} onHide={handleClose} size="lg" style={{color:"black"}}>
       <Modal.Header closeButton>
-        <Modal.Title>Update Hotel</Modal.Title>
+        <Modal.Title>Update Hotel: {updateHotel.name}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleHotelSubmit}>
           <Row>
             <Col md={6}>
               <Form.Group className="mb-3">
                 <Form.Label>Hotel Name</Form.Label>
                 <Form.Control
                   type="text"
-                  name="hotelName"
-                  value={updatedHotel.hotelName || ''}
+                  name="name"
+                  value={updateHotel.name}
                   onChange={handleChange}
                   required
                 />
@@ -46,11 +60,11 @@ function UpdateHotelModal({ hotel, show, handleClose, handleUpdate }) {
             </Col>
             <Col md={6}>
               <Form.Group className="mb-3">
-                <Form.Label>Location</Form.Label>
+                <Form.Label>Email</Form.Label>
                 <Form.Control
-                  type="text"
-                  name="location"
-                  value={updatedHotel.location || ''}
+                  type="email"
+                  name="email"
+                  value={updateHotel.email}
                   onChange={handleChange}
                   required
                 />
@@ -58,44 +72,90 @@ function UpdateHotelModal({ hotel, show, handleClose, handleUpdate }) {
             </Col>
           </Row>
 
-         
-
           <Row>
-            <Col md={4}>
+            <Col md={6}>
               <Form.Group className="mb-3">
-                <Form.Label>Room Type</Form.Label>
-                <Form.Select
-                  name="roomType"
-                  value={updatedHotel.roomType || ''}
-                  onChange={handleChange}
-                  required
-                >
-                  <option value="">Select Room Type</option>
-                  <option value="Single">Single</option>
-                  <option value="Double">Double</option>
-                  <option value="Suite">Suite</option>
-                </Form.Select>
-              </Form.Group>
-            </Col>
-            <Col md={4}>
-              <Form.Group className="mb-3">
-                <Form.Label>Price per Night</Form.Label>
+                <Form.Label>Phone</Form.Label>
                 <Form.Control
-                  type="number"
-                  name="pricePerNight"
-                  value={updatedHotel.pricePerNight || ''}
+                  type="tel"
+                  name="phone"
+                  value={updateHotel.phone}
                   onChange={handleChange}
                   required
                 />
               </Form.Group>
             </Col>
-            <Col md={4}>
+            <Col md={6}>
               <Form.Group className="mb-3">
-                <Form.Label>Number of Guests</Form.Label>
+                <Form.Label>Website</Form.Label>
                 <Form.Control
-                  type="number"
-                  name="numberOfGuests"
-                  value={updatedHotel.numberOfGuests || ''}
+                  type="url"
+                  name="website"
+                  value={updateHotel.website}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+            </Col>
+          </Row>
+
+          <Form.Group className="mb-3">
+            <Form.Label>Address</Form.Label>
+            <Form.Control
+              type="text"
+              name="address"
+              value={updateHotel.address}
+              onChange={handleChange}
+              required
+            />
+          </Form.Group>
+
+          <Row>
+            <Col md={6}>
+              <Form.Group className="mb-3">
+                <Form.Label>City</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="city"
+                  value={updateHotel.city}
+                  onChange={handleChange}
+                  required
+                />
+              </Form.Group>
+            </Col>
+            <Col md={6}>
+              <Form.Group className="mb-3">
+                <Form.Label>State</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="state"
+                  value={updateHotel.state}
+                  onChange={handleChange}
+                  required
+                />
+              </Form.Group>
+            </Col>
+          </Row>
+
+          <Row>
+            <Col md={6}>
+              <Form.Group className="mb-3">
+                <Form.Label>Country</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="country"
+                  value={updateHotel.country}
+                  onChange={handleChange}
+                  required
+                />
+              </Form.Group>
+            </Col>
+            <Col md={6}>
+              <Form.Group className="mb-3">
+                <Form.Label>Zip Code</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="zipCode"
+                  value={updateHotel.zipCode}
                   onChange={handleChange}
                   required
                 />
@@ -104,15 +164,32 @@ function UpdateHotelModal({ hotel, show, handleClose, handleUpdate }) {
           </Row>
 
           <Form.Group className="mb-3">
-            <Form.Label>Amenities</Form.Label>
+            <Form.Label>Rating</Form.Label>
             <Form.Control
-              as="textarea"
-              rows={3}
-              name="amenities"
-              value={updatedHotel.amenities || ''}
+              type="number"
+              name="rating"
+              value={updateHotel.rating}
               onChange={handleChange}
-              placeholder="List amenities separated by commas"
+              min="1"
+              max="5"
+              required
             />
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Label>Amenities</Form.Label>
+            {["Wifi", "AC", "TV", "Gym", "Pool", "Restaurant"].map(
+              (amenity) => (
+                <Form.Check
+                  key={amenity}
+                  type="checkbox"
+                  label={amenity}
+                  value={amenity}
+                  checked={updateHotel.amenities.includes(amenity)}
+                  onChange={handleAmenitiesChange}
+                />
+              )
+            )}
           </Form.Group>
 
           <Button variant="primary" type="submit">
@@ -122,6 +199,6 @@ function UpdateHotelModal({ hotel, show, handleClose, handleUpdate }) {
       </Modal.Body>
     </Modal>
   );
-}
+};
 
 export default UpdateHotelModal;

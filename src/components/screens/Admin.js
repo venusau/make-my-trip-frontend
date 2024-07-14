@@ -5,7 +5,8 @@ import moment from "moment-timezone";
 import Toast from "react-bootstrap/Toast";
 import ToastContainer from "react-bootstrap/ToastContainer";
 
-import UpdateFlightModal from "./modals/UpdateFlightModal"
+import UpdateFlightModal from "./modals/UpdateFlightModal";
+import UpdateHotelModal from "./modals/UpdateHotelModal";
 
 function Notification({ show, onClose, message, bgType }) {
   return (
@@ -62,15 +63,19 @@ const Admin = () => {
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [selectedFlight, setSelectedFlight] = useState(null);
 
+  const [showUpdateHotelModal, setShowUpdateHotelModal] = useState(false);
+  const [selectedHotel, setSelectedHotel] = useState(null);
+
   const openUpdateModal = (flight) => {
     setSelectedFlight(flight);
     setShowUpdateModal(true);
   };
 
-  // Function to close the update modal
-  const closeUpdateModal = () => {
-    setShowUpdateModal(false);
-    setSelectedFlight(null);
+  const openUpdateHotelModal = (hotel) => {
+    setSelectedHotel(hotel);
+    setShowUpdateHotelModal(true);
+
+    console.log(selectedHotel);
   };
 
   const handleFlightUpdate = async (updatedFlight) => {
@@ -81,8 +86,8 @@ const Admin = () => {
         updatedFlight,
         {
           headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
           },
         }
       );
@@ -91,10 +96,37 @@ const Admin = () => {
       setShowToast(true);
       setToastBgType("success");
     } catch (error) {
-      console.error('Error updating flight:', error);
+      console.error("Error updating flight:", error);
       // Show an error message
-      alert('Error updating flight. Please try again.');
-      setToastMessage('Error updating flight. Please try again.');
+      alert("Error updating flight. Please try again.");
+      setToastMessage("Error updating flight. Please try again.");
+      setShowToast(true);
+      setToastBgType("success");
+    }
+  };
+  const handleHotelUpdate = async (updatedHotel) => {
+    console.log(updatedHotel);
+    try {
+      // Make an API call to update the flight
+      const response = await axios.put(
+        `https://make-my-trip-backend.onrender.com/api/hotel`,
+        updatedHotel,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          },
+        }
+      );
+
+      setToastMessage(response.data.message);
+      setShowToast(true);
+      setToastBgType("success");
+    } catch (error) {
+      console.error("Error updating flight:", error);
+      // Show an error message
+      alert("Error updating flight. Please try again.");
+      setToastMessage("Error updating flight. Please try again.");
       setShowToast(true);
       setToastBgType("success");
     }
@@ -312,25 +344,20 @@ const Admin = () => {
     }
   };
 
-  const updateFlightModal= ()=>{
-    
-  }
-
   return (
     <>
-      
       <div className="container mt-5">
-      <ToastContainer
-      className="position-fixed top-0 end-0 p-3"
-      style={{ zIndex: 1050 }}
-    >
-      <Notification
-        show={showToast}
-        onClose={handleToastClose}
-        message={toastMessage}
-        bgType={toastBgType}
-      />
-    </ToastContainer>
+        <ToastContainer
+          className="position-fixed top-0 end-0 p-3"
+          style={{ zIndex: 1050 }}
+        >
+          <Notification
+            show={showToast}
+            onClose={handleToastClose}
+            message={toastMessage}
+            bgType={toastBgType}
+          />
+        </ToastContainer>
         <h1 className="text-center mb-4">Admin Panel</h1>
 
         <div className="container my-5">
@@ -806,7 +833,7 @@ const Admin = () => {
                         <div className="d-flex justify-content-between align-items-center">
                           <div>
                             <span className="badge bg-info text-dark me-2">
-                            ₹{flight.price}
+                              ₹{flight.price}
                             </span>
                             <span className="badge bg-success">
                               {flight.seatsAvailable} seats
@@ -814,7 +841,10 @@ const Admin = () => {
                             <small className="ms-2">{flight.seatType}</small>
                           </div>
                           <div>
-                            <button onClick={() => openUpdateModal(flight)} className="btn btn-sm btn-outline-primary me-2">
+                            <button
+                              onClick={() => openUpdateModal(flight)}
+                              className="btn btn-sm btn-outline-primary me-2"
+                            >
                               <i className="bi bi-pencil-square"></i> Update
                             </button>
                             <button
@@ -836,12 +866,12 @@ const Admin = () => {
                   </div>
                 )}
 
-<UpdateFlightModal
-  show={showUpdateModal}
-  handleClose={() => setShowUpdateModal(false)}
-  flight={selectedFlight}
-  handleUpdate={handleFlightUpdate}
-/>
+                <UpdateFlightModal
+                  show={showUpdateModal}
+                  handleClose={() => setShowUpdateModal(false)}
+                  flight={selectedFlight}
+                  handleUpdate={handleFlightUpdate}
+                />
               </div>
             </div>
           </div>
@@ -897,7 +927,10 @@ const Admin = () => {
                           {hotel.amenities.join(", ")}
                         </p>
                         <div className="d-flex justify-content-end">
-                          <button className="btn btn-sm btn-outline-primary me-2">
+                          <button
+                            onClick={() => openUpdateHotelModal(hotel)}
+                            className="btn btn-sm btn-outline-primary me-2"
+                          >
                             <i className="bi bi-pencil-square"></i> Update
                           </button>
                           <button
@@ -917,6 +950,12 @@ const Admin = () => {
                     Loading...
                   </div>
                 )}
+                <UpdateHotelModal
+                  show={showUpdateHotelModal && selectedHotel !== null}
+                  handleClose={() => setShowUpdateHotelModal(false)}
+                  hotel={selectedHotel}
+                  handleUpdate={handleHotelUpdate}
+                />
               </div>
             </div>
           </div>
