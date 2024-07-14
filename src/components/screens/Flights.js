@@ -33,17 +33,33 @@ function Flights() {
   const handleSearch = async (e) => {
     e.preventDefault();
     try {
+      // Trim the from and to values
+      let trimmedFrom = from.trim();
+      let trimmedTo = to.trim();
+
+      
+
+      // Set the trimmed values
+      setFrom(trimmedFrom);
+      setTo(trimmedTo);
+
+      // Format the departure and return date and time
       const formattedDepartureDateTime = moment.tz(`${departureDate}T${departureTime}`, 'YYYY-MM-DDTHH:mm', 'UTC').toISOString();
       const formattedReturnDateTime = returnDate ? moment.tz(`${returnDate}T${returnTime}`, 'YYYY-MM-DDTHH:mm', 'UTC').toISOString() : undefined;
 
+      // Build query parameters with the trimmed values
       const queryParams = new URLSearchParams({
-        from,
-        to,
+        from: trimmedFrom,
+        to: trimmedTo,
         departureTime: formattedDepartureDateTime,
         returnTime: formattedReturnDateTime,
         seats: numberOfSeats,
       }).toString();
-      console.log(`https://make-my-trip-backend.onrender.com/api/flight?${queryParams}`)
+
+      // Log the constructed URL for debugging
+      console.log(`https://make-my-trip-backend.onrender.com/api/flight?${queryParams}`);
+
+      // Make the API request
       const response = await axios.get(`https://make-my-trip-backend.onrender.com/api/flight?${queryParams}`, {
         headers: {
           "Content-Type": "application/json",
@@ -51,11 +67,13 @@ function Flights() {
         },
       });
 
+      // Set the flights state with the response data
       setFlights(response.data);
     } catch (error) {
       console.log("Error fetching flights:", error);
     }
-  };
+};
+
 
   const handleBookFlight = (flight) => {
     setSelectedFlight(flight);
