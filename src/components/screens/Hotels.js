@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "./css/Hotels.css";
+
 import { useNavigate } from "react-router-dom";
 import HotelModal from "./modals/HotelModal"; 
 

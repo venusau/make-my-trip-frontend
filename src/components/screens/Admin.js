@@ -5,6 +5,8 @@ import moment from "moment-timezone";
 import Toast from "react-bootstrap/Toast";
 import ToastContainer from "react-bootstrap/ToastContainer";
 
+import UpdateFlightModal from "./modals/UpdateFlightModal"
+
 function Notification({ show, onClose, message, bgType }) {
   return (
     <Toast show={show} onClose={onClose} bg={bgType} delay={3000} autohide>
@@ -56,6 +58,47 @@ const Admin = () => {
   const [toastBgType, setToastBgType] = useState("danger");
 
   const handleToastClose = () => setShowToast(false);
+
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
+  const [selectedFlight, setSelectedFlight] = useState(null);
+
+  const openUpdateModal = (flight) => {
+    setSelectedFlight(flight);
+    setShowUpdateModal(true);
+  };
+
+  // Function to close the update modal
+  const closeUpdateModal = () => {
+    setShowUpdateModal(false);
+    setSelectedFlight(null);
+  };
+
+  const handleFlightUpdate = async (updatedFlight) => {
+    try {
+      // Make an API call to update the flight
+      const response = await axios.put(
+        `https://make-my-trip-backend.onrender.com/api/flight`,
+        updatedFlight,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+          },
+        }
+      );
+
+      setToastMessage(response.data.message);
+      setShowToast(true);
+      setToastBgType("success");
+    } catch (error) {
+      console.error('Error updating flight:', error);
+      // Show an error message
+      alert('Error updating flight. Please try again.');
+      setToastMessage('Error updating flight. Please try again.');
+      setShowToast(true);
+      setToastBgType("success");
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -268,6 +311,10 @@ const Admin = () => {
       setToastBgType("danger");
     }
   };
+
+  const updateFlightModal= ()=>{
+    
+  }
 
   return (
     <>
@@ -759,7 +806,7 @@ const Admin = () => {
                         <div className="d-flex justify-content-between align-items-center">
                           <div>
                             <span className="badge bg-info text-dark me-2">
-                              ${flight.price}
+                            ₹{flight.price}
                             </span>
                             <span className="badge bg-success">
                               {flight.seatsAvailable} seats
@@ -767,7 +814,7 @@ const Admin = () => {
                             <small className="ms-2">{flight.seatType}</small>
                           </div>
                           <div>
-                            <button className="btn btn-sm btn-outline-primary me-2">
+                            <button onClick={() => openUpdateModal(flight)} className="btn btn-sm btn-outline-primary me-2">
                               <i className="bi bi-pencil-square"></i> Update
                             </button>
                             <button
@@ -788,6 +835,13 @@ const Admin = () => {
                     Loading...
                   </div>
                 )}
+
+<UpdateFlightModal
+  show={showUpdateModal}
+  handleClose={() => setShowUpdateModal(false)}
+  flight={selectedFlight}
+  handleUpdate={handleFlightUpdate}
+/>
               </div>
             </div>
           </div>
