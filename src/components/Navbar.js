@@ -50,30 +50,54 @@ function Navbar() {
       return (
         <>
           <li className="nav-item">
-            <NavLink className={({ isActive }) => "nav-link" + (isActive ? " active" : "")} to="/userdashboard">
+            <NavLink
+              className={({ isActive }) =>
+                "nav-link" + (isActive ? " active" : "")
+              }
+              to="/userdashboard"
+            >
               Dashboard
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink className={({ isActive }) => "nav-link" + (isActive ? " active" : "")} to="/flights">
+            <NavLink
+              className={({ isActive }) =>
+                "nav-link" + (isActive ? " active" : "")
+              }
+              to="/flights"
+            >
               Flights
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink className={({ isActive }) => "nav-link" + (isActive ? " active" : "")} to="/hotels">
+            <NavLink
+              className={({ isActive }) =>
+                "nav-link" + (isActive ? " active" : "")
+              }
+              to="/hotels"
+            >
               Hotels
             </NavLink>
           </li>
           {isAdmin && (
             <li className="nav-item">
-              <NavLink className={({ isActive }) => "nav-link" + (isActive ? " active" : "")} to="/admin">
+              <NavLink
+                className={({ isActive }) =>
+                  "nav-link" + (isActive ? " active" : "")
+                }
+                to="/admin"
+              >
                 Admin Panel
               </NavLink>
             </li>
           )}
           <li className="nav-item">
             <div className="btn border rounded-pill text-end">
-              <button className="nav-link" onClick={handleLogout} style={{ height: "4vh", textAlign: "center" }}>
+              <button
+                className="nav-link"
+                onClick={handleLogout}
+                style={{ height: "4vh", textAlign: "center" }}
+              >
                 <span className="pb-1">Logout</span>
               </button>
             </div>
@@ -84,12 +108,22 @@ function Navbar() {
       return (
         <>
           <li className="nav-item">
-            <NavLink className={({ isActive }) => "nav-link" + (isActive ? " active" : "")} to="/signin">
+            <NavLink
+              className={({ isActive }) =>
+                "nav-link" + (isActive ? " active" : "")
+              }
+              to="/signin"
+            >
               Signin
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink className={({ isActive }) => "nav-link" + (isActive ? " active" : "")} to="/register">
+            <NavLink
+              className={({ isActive }) =>
+                "nav-link" + (isActive ? " active" : "")
+              }
+              to="/register"
+            >
               Register
             </NavLink>
           </li>
@@ -101,11 +135,20 @@ function Navbar() {
   return (
     <header>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
-        <div className="container-fluid" style={{ display: "flex", justifyContent: "space-between" }}>
-          <NavLink className="navbar-brand" to={state ? "/" : "/signin"}>
+        <div
+          className="container-fluid"
+          style={{ display: "flex", justifyContent: "space-between" }}
+        >
+          <NavLink
+            className={({ isActive }) =>
+              "navbar-brand nav-link" + (isActive ? " inactive" : "")
+            }
+            to={state ? "/" : "/signin"}
+            
+          >
             <img
               src="https://imgak.mmtcdn.com/pwa_v3/pwa_hotel_assets/header/mmtLogoWhite.png"
-              height="30vh"
+              height="35vh"
               alt="Make My Trip"
             />
           </NavLink>

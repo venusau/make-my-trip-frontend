@@ -5,24 +5,32 @@
   box-sizing: border-box;
 }
 
+/* Navbar Container */
 .navbar {
   background-color: rgba(0, 0, 0, 0.7) !important; 
-  padding: 0.5rem 1rem; 
+  padding: 1rem 2rem; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Navbar Links and Brand */
 .navbar .nav-link,
 .navbar .navbar-brand {
-  color: rgba(136, 136, 136, 0.852) ;
-  font-weight: 500; 
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 600; 
+  font-size: 1rem;
+  transition: color 0.3s ease, background-color 0.3s ease;
 }
 
 .navbar .logo {
-  height: 50px;
+  height: 40px;
+  margin-right: 1rem;
 }
 
-.active{
+
+.active {
   color: rgb(255, 255, 255) !important;
-  background-color: rgba(255, 255, 255, 0) !important;
+  background-color: rgba(255, 255, 255, 0.142) !important;
+  border-radius: 5px;
 }
 
 .flight-dates > div {
