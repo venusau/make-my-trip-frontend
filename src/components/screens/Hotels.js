@@ -47,7 +47,7 @@ function Hotels() {
       }).toString();
       
       const response = await axios.get(
-        `https://make-my-trip-backend.onrender.com/api/hotel?${queryParams}`,
+        `https://make-my-trip-backend.vercel.app/api/hotel?${queryParams}`,
         {
           headers: {
             "Content-Type": "application/json",

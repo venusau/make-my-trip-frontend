@@ -82,7 +82,7 @@ const Admin = () => {
     try {
       // Make an API call to update the flight
       const response = await axios.put(
-        `https://make-my-trip-backend.onrender.com/api/flight`,
+        `https://make-my-trip-backend.vercel.app/api/flight`,
         updatedFlight,
         {
           headers: {
@@ -109,7 +109,7 @@ const Admin = () => {
     try {
       // Make an API call to update the flight
       const response = await axios.put(
-        `https://make-my-trip-backend.onrender.com/api/hotel`,
+        `https://make-my-trip-backend.vercel.app/api/hotel`,
         updatedHotel,
         {
           headers: {
@@ -136,7 +136,7 @@ const Admin = () => {
     const fetchData = async () => {
       try {
         const flightsRes = await axios.get(
-          "https://make-my-trip-backend.onrender.com/api/flight",
+          "https://make-my-trip-backend.vercel.app/api/flight",
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("jwt")}`,
@@ -146,7 +146,7 @@ const Admin = () => {
         setFlights(flightsRes.data);
 
         const hotelsRes = await axios.get(
-          "https://make-my-trip-backend.onrender.com/api/hotel",
+          "https://make-my-trip-backend.vercel.app/api/hotel",
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("jwt")}`,
@@ -201,7 +201,7 @@ const Admin = () => {
     };
     try {
       const response = await axios.post(
-        "https://make-my-trip-backend.onrender.com/api/flight",
+        "https://make-my-trip-backend.vercel.app/api/flight",
         formattedFlight,
         {
           headers: {
@@ -249,7 +249,7 @@ const Admin = () => {
     try {
       console.log(formattedHotel);
       const response = await axios.post(
-        "https://make-my-trip-backend.onrender.com/api/hotel",
+        "https://make-my-trip-backend.vercel.app/api/hotel",
         formattedHotel,
         {
           headers: {
@@ -293,7 +293,7 @@ const Admin = () => {
   const deleteHotelClickHandler = async (hotelId) => {
     try {
       const response = await axios.delete(
-        "https://make-my-trip-backend.onrender.com/api/hotel",
+        "https://make-my-trip-backend.vercel.app/api/hotel",
         {
           headers: {
             "Content-Type": "application/json",
@@ -320,7 +320,7 @@ const Admin = () => {
   const deleteFlightClickHandler = async (flightNumber) => {
     try {
       const response = await axios.delete(
-        "https://make-my-trip-backend.onrender.com/api/flight",
+        "https://make-my-trip-backend.vercel.app/api/flight",
         {
           headers: {
             "Content-Type": "application/json",

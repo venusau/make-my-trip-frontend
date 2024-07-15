@@ -35,7 +35,7 @@ function Register() {
       return;
     }
 
-    fetch("https://make-my-trip-backend.onrender.com/api/auth/signup", {
+    fetch("https://make-my-trip-backend.vercel.app/api/auth/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

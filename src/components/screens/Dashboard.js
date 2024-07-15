@@ -8,7 +8,7 @@ function Dashboard() {
   const [selectedBooking, setSelectedBooking] = useState(null);
 
   useEffect(() => {
-    fetch("https://make-my-trip-backend.onrender.com/api/booking", {
+    fetch("https://make-my-trip-backend.vercel.app/api/booking", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("jwt")}`,
       },
@@ -34,7 +34,7 @@ function Dashboard() {
 
   const handleConfirmCancel = async () => {
     try {
-      await fetch(`https://make-my-trip-backend.onrender.com/api/booking/${selectedBooking._id}`, {
+      await fetch(`https://make-my-trip-backend.vercel.app/api/booking/${selectedBooking._id}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${localStorage.getItem("jwt")}`,

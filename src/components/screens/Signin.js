@@ -39,7 +39,7 @@ function Signin() {
       return;
     }
 
-    fetch("https://make-my-trip-backend.onrender.com/api/auth/signin", {
+    fetch("https://make-my-trip-backend.vercel.app/api/auth/signin", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

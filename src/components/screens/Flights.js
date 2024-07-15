@@ -57,10 +57,10 @@ function Flights() {
       }).toString();
 
       // Log the constructed URL for debugging
-      console.log(`https://make-my-trip-backend.onrender.com/api/flight?${queryParams}`);
+      console.log(`https://make-my-trip-backend.vercel.app/api/flight?${queryParams}`);
 
       // Make the API request
-      const response = await axios.get(`https://make-my-trip-backend.onrender.com/api/flight?${queryParams}`, {
+      const response = await axios.get(`https://make-my-trip-backend.vercel.app/api/flight?${queryParams}`, {
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${localStorage.getItem("jwt")}`,
@@ -88,7 +88,7 @@ function Flights() {
   const handleConfirmBooking = async () => {
     try {
       const response = await axios.post(
-        'https://make-my-trip-backend.onrender.com/api/booking',
+        'https://make-my-trip-backend.vercel.app/api/booking',
         {
           bookingType: 'flight',
           flightDetails: {

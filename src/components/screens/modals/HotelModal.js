@@ -26,7 +26,7 @@ const HotelModal = ({ show, handleClose, hotel }) => {
       };
 
       const response = await axios.post(
-        "https://make-my-trip-backend.onrender.com/api/booking",
+        "https://make-my-trip-backend.vercel.app/api/booking",
         bookingData,
         {
           headers: {

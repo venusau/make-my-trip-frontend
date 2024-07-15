@@ -16,7 +16,7 @@ function Navbar() {
       }
 
       const response = await fetch(
-        "https://make-my-trip-backend.onrender.com/api/admin",
+        "https://make-my-trip-backend.vercel.app/api/admin",
         {
           headers: {
             "Content-Type": "application/json",
