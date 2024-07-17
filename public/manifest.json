@@ -1,19 +1,19 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "MakeMyTrip",
+  "name": "MakeMyTrip",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "https://asset.brandfetch.io/idC6eY3m41/idONfNveUC.svg?updated=1668516572029",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
+      "src": "https://asset.brandfetch.io/idC6eY3m41/iddTF3R4B0.png?updated=1668516572029",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "logo512.png",
+      "src": "https://asset.brandfetch.io/idC6eY3m41/iddTF3R4B0.png?updated=1668516572029",
       "type": "image/png",
       "sizes": "512x512"
     }
