@@ -39,7 +39,12 @@ const UpdateHotelModal = ({ show, handleClose, hotel, handleUpdate }) => {
   }
 
   return (
-    <Modal show={show} onHide={handleClose} size="lg" style={{color:"black"}}>
+    <Modal
+      show={show}
+      onHide={handleClose}
+      size="lg"
+      style={{ color: "black" }}
+    >
       <Modal.Header closeButton>
         <Modal.Title>Update Hotel: {updateHotel.name}</Modal.Title>
       </Modal.Header>

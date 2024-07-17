@@ -1,6 +1,15 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Modal, Button, Form, Card, ListGroup, Row, Col, Badge } from "react-bootstrap";
+import {
+  Modal,
+  Button,
+  Form,
+  Card,
+  ListGroup,
+  Row,
+  Col,
+  Badge,
+} from "react-bootstrap";
 
 const HotelModal = ({ show, handleClose, hotel }) => {
   const [selectedRoom, setSelectedRoom] = useState(null);
@@ -46,22 +55,48 @@ const HotelModal = ({ show, handleClose, hotel }) => {
   };
 
   return (
-    <Modal size="lg" show={show} onHide={handleClose} style={{color:"black"}}>
+    <Modal
+      size="lg"
+      show={show}
+      onHide={handleClose}
+      style={{ color: "black" }}
+    >
       <Modal.Header closeButton>
         <Modal.Title>{hotel.name} - Booking Details</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Card className="mb-4">
           <Card.Body>
-            <Card.Title>{hotel.name} <Badge bg="warning" text="dark">{hotel.rating} ★</Badge></Card.Title>
+            <Card.Title>
+              {hotel.name}{" "}
+              <Badge bg="warning" text="dark">
+                {hotel.rating} ★
+              </Badge>
+            </Card.Title>
             <Card.Text>
               <i className="bi bi-geo-alt-fill me-2"></i>
-              {hotel.address}, {hotel.city}, {hotel.state}, {hotel.country}, {hotel.zipCode}
+              {hotel.address}, {hotel.city}, {hotel.state}, {hotel.country},{" "}
+              {hotel.zipCode}
             </Card.Text>
             <ListGroup variant="flush">
-              <ListGroup.Item><i className="bi bi-telephone-fill me-2"></i>{hotel.phone}</ListGroup.Item>
-              <ListGroup.Item><i className="bi bi-envelope-fill me-2"></i>{hotel.email}</ListGroup.Item>
-              <ListGroup.Item><i className="bi bi-globe me-2"></i><a href={hotel.website} target="_blank" rel="noopener noreferrer">{hotel.website}</a></ListGroup.Item>
+              <ListGroup.Item>
+                <i className="bi bi-telephone-fill me-2"></i>
+                {hotel.phone}
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <i className="bi bi-envelope-fill me-2"></i>
+                {hotel.email}
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <i className="bi bi-globe me-2"></i>
+                <a
+                  href={hotel.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {hotel.website}
+                </a>
+              </ListGroup.Item>
             </ListGroup>
           </Card.Body>
         </Card>
@@ -70,15 +105,22 @@ const HotelModal = ({ show, handleClose, hotel }) => {
         <Row xs={1} md={2} className="g-4 mb-4">
           {hotel.rooms.map((room) => (
             <Col key={room._id}>
-              <Card 
-                className={`h-100 ${selectedRoom && selectedRoom._id === room._id ? 'border-primary' : ''}`}
+              <Card
+                className={`h-100 ${
+                  selectedRoom && selectedRoom._id === room._id
+                    ? "border-primary"
+                    : ""
+                }`}
                 onClick={() => setSelectedRoom(room)}
-                style={{ cursor: 'pointer' }}
+                style={{ cursor: "pointer" }}
               >
                 <Card.Body>
-                  <Card.Title>Room {room.roomNumber} - {room.type}</Card.Title>
+                  <Card.Title>
+                    Room {room.roomNumber} - {room.type}
+                  </Card.Title>
                   <Card.Text>
-                    <strong>Price:</strong> ₹{room.price}<br />
+                    <strong>Price:</strong> ₹{room.price}
+                    <br />
                     <strong>Amenities:</strong> {room.amenities.join(", ")}
                   </Card.Text>
                 </Card.Body>
@@ -123,7 +165,11 @@ const HotelModal = ({ show, handleClose, hotel }) => {
         <Button variant="secondary" onClick={handleClose}>
           Close
         </Button>
-        <Button variant="primary" onClick={handleBooking} disabled={loading || !selectedRoom}>
+        <Button
+          variant="primary"
+          onClick={handleBooking}
+          disabled={loading || !selectedRoom}
+        >
           {loading ? "Booking..." : "Book Hotel"}
         </Button>
       </Modal.Footer>

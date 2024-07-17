@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Modal, Button, Form, Row, Col } from 'react-bootstrap';
+import React, { useState, useEffect } from "react";
+import { Modal, Button, Form, Row, Col } from "react-bootstrap";
 
 function UpdateFlightModal({ flight, show, handleClose, handleUpdate }) {
   const [updatedFlight, setUpdatedFlight] = useState({});
@@ -16,7 +16,7 @@ function UpdateFlightModal({ flight, show, handleClose, handleUpdate }) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setUpdatedFlight(prev => ({ ...prev, [name]: value }));
+    setUpdatedFlight((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e) => {
@@ -26,7 +26,12 @@ function UpdateFlightModal({ flight, show, handleClose, handleUpdate }) {
   };
 
   return (
-    <Modal show={show} onHide={handleClose} size="lg" style={{color:"black"}}>
+    <Modal
+      show={show}
+      onHide={handleClose}
+      size="lg"
+      style={{ color: "black" }}
+    >
       <Modal.Header closeButton>
         <Modal.Title>Update Flight</Modal.Title>
       </Modal.Header>
@@ -39,7 +44,7 @@ function UpdateFlightModal({ flight, show, handleClose, handleUpdate }) {
                 <Form.Control
                   type="text"
                   name="flightNumber"
-                  value={updatedFlight.flightNumber || ''}
+                  value={updatedFlight.flightNumber || ""}
                   onChange={handleChange}
                   required
                 />
@@ -51,7 +56,7 @@ function UpdateFlightModal({ flight, show, handleClose, handleUpdate }) {
                 <Form.Control
                   type="text"
                   name="airline"
-                  value={updatedFlight.airline || ''}
+                  value={updatedFlight.airline || ""}
                   onChange={handleChange}
                   required
                 />
@@ -66,7 +71,7 @@ function UpdateFlightModal({ flight, show, handleClose, handleUpdate }) {
                 <Form.Control
                   type="text"
                   name="from"
-                  value={updatedFlight.from || ''}
+                  value={updatedFlight.from || ""}
                   onChange={handleChange}
                   required
                 />
@@ -78,7 +83,7 @@ function UpdateFlightModal({ flight, show, handleClose, handleUpdate }) {
                 <Form.Control
                   type="text"
                   name="to"
-                  value={updatedFlight.to || ''}
+                  value={updatedFlight.to || ""}
                   onChange={handleChange}
                   required
                 />
@@ -93,7 +98,13 @@ function UpdateFlightModal({ flight, show, handleClose, handleUpdate }) {
                 <Form.Control
                   type="datetime-local"
                   name="departureTime"
-                  value={updatedFlight.departureTime ? new Date(updatedFlight.departureTime).toISOString().slice(0, 16) : ''}
+                  value={
+                    updatedFlight.departureTime
+                      ? new Date(updatedFlight.departureTime)
+                          .toISOString()
+                          .slice(0, 16)
+                      : ""
+                  }
                   onChange={handleChange}
                   required
                 />
@@ -105,7 +116,13 @@ function UpdateFlightModal({ flight, show, handleClose, handleUpdate }) {
                 <Form.Control
                   type="datetime-local"
                   name="arrivalTime"
-                  value={updatedFlight.arrivalTime ? new Date(updatedFlight.arrivalTime).toISOString().slice(0, 16) : ''}
+                  value={
+                    updatedFlight.arrivalTime
+                      ? new Date(updatedFlight.arrivalTime)
+                          .toISOString()
+                          .slice(0, 16)
+                      : ""
+                  }
                   onChange={handleChange}
                   required
                 />
@@ -120,7 +137,7 @@ function UpdateFlightModal({ flight, show, handleClose, handleUpdate }) {
                 <Form.Control
                   type="text"
                   name="duration"
-                  value={updatedFlight.duration || ''}
+                  value={updatedFlight.duration || ""}
                   onChange={handleChange}
                   required
                 />
@@ -132,7 +149,7 @@ function UpdateFlightModal({ flight, show, handleClose, handleUpdate }) {
                 <Form.Control
                   type="number"
                   name="price"
-                  value={updatedFlight.price || ''}
+                  value={updatedFlight.price || ""}
                   onChange={handleChange}
                   required
                 />
@@ -144,7 +161,7 @@ function UpdateFlightModal({ flight, show, handleClose, handleUpdate }) {
                 <Form.Control
                   type="number"
                   name="seatsAvailable"
-                  value={updatedFlight.seatsAvailable || ''}
+                  value={updatedFlight.seatsAvailable || ""}
                   onChange={handleChange}
                   required
                 />
@@ -156,7 +173,7 @@ function UpdateFlightModal({ flight, show, handleClose, handleUpdate }) {
             <Form.Label>Seat Type</Form.Label>
             <Form.Select
               name="seatType"
-              value={updatedFlight.seatType || ''}
+              value={updatedFlight.seatType || ""}
               onChange={handleChange}
               required
             >
