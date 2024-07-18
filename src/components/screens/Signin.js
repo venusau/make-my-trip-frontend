@@ -3,22 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context";
 import { useContext } from "react";
 
-import Toast from "react-bootstrap/Toast";
 import ToastContainer from "react-bootstrap/ToastContainer";
-
-function Notification({ show, onClose, message, bgType }) {
-  return (
-    <Toast show={show} onClose={onClose} bg={bgType} delay={3000} autohide>
-      <Toast.Header>
-        <strong className="me-auto">Notification</strong>
-      </Toast.Header>
-      <Toast.Body>{message}</Toast.Body>
-    </Toast>
-  );
-}
+import Notification from "./toasts/Notification";
 
 function Signin() {
-  const { state, dispatch } = useContext(UserContext);
+  const { dispatch } = useContext(UserContext);
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
