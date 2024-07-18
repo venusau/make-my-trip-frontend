@@ -50,57 +50,36 @@ function Navbar() {
       return (
         <>
           <li className="nav-item">
-            <NavLink
-              className={({ isActive }) =>
-                "nav-link" + (isActive ? " active" : "")
-              }
-              to="/userdashboard"
-            >
-              Dashboard
+            <NavLink className="nav-link" to="/userdashboard">
+              <i className="fas fa-user fa-lg"></i>
+              <span className="nav-text">Profile</span>
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink
-              className={({ isActive }) =>
-                "nav-link" + (isActive ? " active" : "")
-              }
-              to="/flights"
-            >
-              Flights
+            <NavLink className="nav-link" to="/flights">
+              <i className="fas fa-plane-departure fa-lg"></i>
+              <span className="nav-text">Flights</span>
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink
-              className={({ isActive }) =>
-                "nav-link" + (isActive ? " active" : "")
-              }
-              to="/hotels"
-            >
-              Hotels
+            <NavLink className="nav-link" to="/hotels">
+              <i className="fas fa-hotel fa-lg"></i>
+              <span className="nav-text">Hotels</span>
             </NavLink>
           </li>
           {isAdmin && (
             <li className="nav-item">
-              <NavLink
-                className={({ isActive }) =>
-                  "nav-link" + (isActive ? " active" : "")
-                }
-                to="/admin"
-              >
-                Admin Panel
+              <NavLink className="nav-link" to="/admin">
+              <i class="fas fa-cogs fa-lg"></i>
+                <span className="nav-text">Admin</span>
               </NavLink>
             </li>
           )}
           <li className="nav-item">
-            <div className="btn border rounded-pill text-end">
-              <button
-                className="nav-link"
-                onClick={handleLogout}
-                style={{ height: "4vh", textAlign: "center" }}
-              >
-                <span className="pb-1">Logout</span>
-              </button>
-            </div>
+            <button className="nav-link logout-btn" onClick={handleLogout}>
+              <i className="fas fa-sign-out-alt fa-lg"></i>
+              <span className="nav-text">Logout</span>
+            </button>
           </li>
         </>
       );
@@ -108,22 +87,12 @@ function Navbar() {
       return (
         <>
           <li className="nav-item">
-            <NavLink
-              className={({ isActive }) =>
-                "nav-link" + (isActive ? " active" : "")
-              }
-              to="/signin"
-            >
-              Signin
+            <NavLink className="nav-link" to="/signin">
+              Sign In
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink
-              className={({ isActive }) =>
-                "nav-link" + (isActive ? " active" : "")
-              }
-              to="/register"
-            >
+            <NavLink className="nav-link" to="/register">
               Register
             </NavLink>
           </li>
@@ -134,22 +103,14 @@ function Navbar() {
 
   return (
     <header>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary">
-        <div
-          className="container-fluid"
-          style={{ display: "flex", justifyContent: "space-between" }}
-        >
-          <NavLink
-            className={({ isActive }) =>
-              "navbar-brand nav-link" + (isActive ? " inactive" : "")
-            }
-            to={state ? "/" : "/signin"}
-            
-          >
+      <nav className="navbar navbar-expand-lg navbar-dark">
+        <div className="container-fluid">
+          <NavLink className="navbar-brand" to={state ? "/" : "/signin"} activeClassName="inactive">
             <img
               src="https://imgak.mmtcdn.com/pwa_v3/pwa_hotel_assets/header/mmtLogoWhite.png"
-              height="35vh"
+              height="40"
               alt="Make My Trip"
+              className="logo"
             />
           </NavLink>
           <button
@@ -160,18 +121,11 @@ function Navbar() {
             aria-controls="navbarNavDropdown"
             aria-expanded="false"
             aria-label="Toggle navigation"
-            style={{ border: "none" }}
           >
-            <span
-              className="navbar-toggler-icon"
-              style={{
-                backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e")`,
-                backgroundSize: "100%",
-              }}
-            />
+            <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul className="navbar-nav">{renderList()}</ul>
+            <ul className="navbar-nav ms-auto">{renderList()}</ul>
           </div>
         </div>
       </nav>

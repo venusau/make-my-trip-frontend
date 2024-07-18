@@ -1,120 +1,32 @@
-.container {
+body {
+  font-family: 'Lato', sans-serif;
+  background-color: #f2f2f2;
+}
+
+.mmt-container {
   max-width: 1200px;
-}
-
-.custom-card {
-  background-color: #f9f9f9;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 15px;
-  border: none;
-}
-
-.custom-input {
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 8px;
-  text-align: center;
-}
-
-.swap-button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 8px 20px;
-  border-radius: 5px;
-  font-size: 1.2rem;
-}
-
-.form-title {
-  color: rgb(93, 150, 199);
-  text-align: center;
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
-
-.checkbox {
-  width: 20px;
-  height: 20px;
-  border: 2px solid #ccc;
-  border-radius: 50%;
-  display: inline-block;
-  vertical-align: middle;
-  cursor: pointer;
-  background-color: #ffffff;
-}
-
-.flight-dates {
-  padding: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.card {
-  overflow: hidden;
-  border: none;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.card img {
-  height: 200px;
-  object-fit: cover;
-}
-
-.card-body {
-  padding: 1rem;
-}
-
-.btn-primary {
-  background-color: #007bff;
-  border-color: #007bff;
-  cursor: pointer;
-}
-.container {
-  max-width: 1200px;
-}
-
-.form-title {
-  color: #333;
-  font-weight: bold;
-  font-size: 28px;
-}
-
-.card.custom-card {
-  background-color: rgba(255, 255, 255, 0.9);
-  border-radius: 8px;
-}
-
-.custom-input {
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.swap-button {
-  font-size: 24px;
-}
-
-.flight-dates {
+  margin: 0 auto;
   padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
 }
 
-.form-label {
-  font-weight: bold;
-}
-
-.btn-primary {
-  background-color: #007bff;
-  border-color: #007bff;
+.form-control:focus {
+  border-color: #008cff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 140, 255, 0.25);
 }
 
 .btn-primary:hover {
-  background-color: #0056b3;
-  border-color: #004085;
+  background-color: #0070cc !important;
 }
 
-.card-img-top {
-  height: 200px;
-  object-fit: cover;
+.card {
+  border: none;
+  transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.flight-results .card:hover {
+  border-left: 4px solid #008cff;
 }
