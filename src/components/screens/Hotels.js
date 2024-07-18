@@ -90,7 +90,7 @@ function Hotels() {
   </div>
 
   <div className="row justify-content-center">
-    <div className="col-md-10">
+    <div className="col-md-10 mb-5">
       <h2 className="text-center mb-4">Book Your Hotel</h2>
       <form onSubmit={handleSearch} className="bg-light p-4 rounded shadow">
         <div className="row g-3">
@@ -160,7 +160,7 @@ function Hotels() {
           {hotels.map((hotel) => (
             <div key={hotel._id} className="col-md-4 mb-4">
               <div className="card h-100" onClick={() => clickHandlerForHotelCard(hotel)}>
-                <img src={hotel.image || 'placeholder-image-url'} className="card-img-top" alt={hotel.name} />
+                <img src={hotel.image || 'https://media.istockphoto.com/id/1165384568/fr/photo/complexe-moderne-europ%C3%A9en-de-b%C3%A2timents-r%C3%A9sidentiels.jpg?s=612x612&w=0&k=20&c=nvoIbiIffCt-nuj47Cc3I261Ke98iMouq_HefNM7Lz0='} className="card-img-top" alt={hotel.name} />
                 <div className="card-body">
                   <h5 className="card-title">{hotel.name}</h5>
                   <p className="card-text">{hotel.address}, {hotel.city}, {hotel.state}, {hotel.country}</p>
