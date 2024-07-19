@@ -73,14 +73,19 @@ function Flights() {
           },
         }
       );
-      setToastMessage(response.data.message);
-      setToastBgType("success");
-      setShowToast(true);
-      if (!response.data.message) {
+      console.log(response)
+      if(response.data.length> 0){
+        setToastMessage("Flights fetched successfully");
+        setToastBgType("success");
+        setShowToast(true);
+      }
+      
+      else{
         setToastMessage(`No flights from ${from} to ${to} in that particular date.`);
         setToastBgType("danger");
         setShowToast(true);
       }
+      
 
       // Set the flights state with the response data
       setFlights(response.data);
