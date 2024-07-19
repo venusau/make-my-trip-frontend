@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import CancelBookingModal from "./modals/CancelBookingModal"; // Import the modal
+import CancelBookingModal from "./modals/CancelBookingModal";
 import { NavLink } from "react-router-dom";
 import Notification from "./toasts/Notification";
 import { ToastContainer } from "react-bootstrap";
@@ -21,7 +21,6 @@ function Dashboard() {
   const [toastBgType, setToastBgType] = useState("danger");
   const handleToastClose = () => setShowToast(false);
 
-  console.log(bookings);
   useEffect(() => {
     fetch("https://make-my-trip-backend.vercel.app/api/booking", {
       headers: {
@@ -30,16 +29,26 @@ function Dashboard() {
     })
       .then((res) => res.json())
       .then((data) => {
-        const { booking } = data;
-        setBookings(booking);
+        const { bookings } = data;
+        console.log(bookings);
+        setBookings(bookings || []); // Provide default empty array if booking is undefined
       })
-      .catch((err) => console.error("Error fetching bookings:", err));
+      .catch((err) => {
+        console.error("Error fetching bookings:", err);
+        setToastMessage("Error fetching bookings. Please try again.");
+        setToastBgType("danger");
+        setShowToast(true);
+      });
   }, []);
 
   const handleCancelBooking = (booking) => {
-    console.log("Selected booking:", JSON.stringify(booking, null, 2));
-    setSelectedBooking(booking);
-    setShowModal(true);
+    if (booking) {
+      console.log("Selected booking:", JSON.stringify(booking, null, 2));
+      setSelectedBooking(booking);
+      setShowModal(true);
+    } else {
+      console.error("Attempted to cancel undefined booking");
+    }
   };
 
   const handleCloseModal = () => {
@@ -48,6 +57,11 @@ function Dashboard() {
   };
 
   const handleConfirmCancel = async () => {
+    if (!selectedBooking || !selectedBooking._id) {
+      console.error("No booking selected for cancellation");
+      return;
+    }
+
     try {
       const response = await fetch(
         `https://make-my-trip-backend.vercel.app/api/booking/${selectedBooking._id}`,
@@ -59,7 +73,7 @@ function Dashboard() {
         }
       );
       const data = await response.json();
-      setToastMessage(data.message);
+      setToastMessage(data.message || "Booking cancelled successfully");
       setToastBgType("success");
       setShowToast(true);
       setBookings(
@@ -68,7 +82,9 @@ function Dashboard() {
       handleCloseModal();
     } catch (err) {
       console.error("Error cancelling booking:", err);
-      setToastMessage(err.message);
+      setToastMessage(
+        err.message || "Error cancelling booking. Please try again."
+      );
       setToastBgType("danger");
       setShowToast(true);
     }
@@ -152,7 +168,7 @@ function Dashboard() {
                                 color: "#000",
                               }}
                             >
-                              {booking.departureCity}
+                              {booking.flightDetails.flightInfo.from}
                             </p>
                             <p
                               className="mb-0"
@@ -176,13 +192,15 @@ function Dashboard() {
                                 color: "#000",
                               }}
                             >
-                              {booking.arrivalCity}
+                              {booking.flightDetails.flightInfo.to}
                             </p>
                             <p
                               className="mb-0"
                               style={{ fontSize: "14px", color: "#4a4a4a" }}
                             >
-                              {booking.arrivalTime}
+                              {formatDate(
+                                booking.flightDetails.flightInfo.arrivalTime
+                              )}
                             </p>
                           </div>
                         </div>
@@ -204,13 +222,14 @@ function Dashboard() {
                             className="fas fa-plane-departure mr-2"
                             style={{ color: "#008cff" }}
                           ></i>{" "}
-                          {booking.airline || "Emirates" || "Air India"}
+                          {booking.flightDetails.flightInfo.airline ||
+                            "Airline not available"}
                         </p>
                       </>
                     ) : (
                       <>
                         <h6 className="mb-3" style={{ color: "#000" }}>
-                          {booking.hotelName}
+                          {booking.hotelDetails.hotelInfo.name}
                         </h6>
                         <div className="d-flex justify-content-between align-items-center mb-3">
                           <div>
@@ -256,7 +275,7 @@ function Dashboard() {
                             className="fas fa-map-marker-alt mr-2"
                             style={{ color: "#008cff" }}
                           ></i>{" "}
-                          {booking.location}
+                          {booking.hotelDetails.hotelInfo.city}
                         </p>
                         <p
                           className="mb-0"
@@ -293,7 +312,10 @@ function Dashboard() {
           handleConfirmCancel={handleConfirmCancel}
         />
 
-        <ToastContainer position="top-end" className="p-3">
+        <ToastContainer
+          className="position-fixed top-0 end-0 p-3"
+          style={{ zIndex: 1050 }}
+        >
           <Notification
             show={showToast}
             onClose={handleToastClose}

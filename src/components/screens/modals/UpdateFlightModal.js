@@ -8,11 +8,16 @@ function UpdateFlightModal({ flight, show, handleClose, handleUpdate }) {
     if (flight) {
       setUpdatedFlight({
         ...flight,
-        departureTime: new Date(flight.departureTime),
-        arrivalTime: new Date(flight.arrivalTime),
+        departureTime: formatDateTimeForInput(flight.departureTime),
+        arrivalTime: formatDateTimeForInput(flight.arrivalTime),
       });
     }
   }, [flight]);
+
+  const formatDateTimeForInput = (dateTimeString) => {
+    const date = new Date(dateTimeString);
+    return date.toISOString().slice(0, 16);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -98,13 +103,7 @@ function UpdateFlightModal({ flight, show, handleClose, handleUpdate }) {
                 <Form.Control
                   type="datetime-local"
                   name="departureTime"
-                  value={
-                    updatedFlight.departureTime
-                      ? new Date(updatedFlight.departureTime)
-                          .toISOString()
-                          .slice(0, 16)
-                      : ""
-                  }
+                  value={updatedFlight.departureTime || ""}
                   onChange={handleChange}
                   required
                 />
@@ -116,13 +115,7 @@ function UpdateFlightModal({ flight, show, handleClose, handleUpdate }) {
                 <Form.Control
                   type="datetime-local"
                   name="arrivalTime"
-                  value={
-                    updatedFlight.arrivalTime
-                      ? new Date(updatedFlight.arrivalTime)
-                          .toISOString()
-                          .slice(0, 16)
-                      : ""
-                  }
+                  value={updatedFlight.arrivalTime || ""}
                   onChange={handleChange}
                   required
                 />

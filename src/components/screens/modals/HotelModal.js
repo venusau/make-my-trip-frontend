@@ -11,7 +11,7 @@ import {
   Badge,
 } from "react-bootstrap";
 
-const HotelModal = ({ show, handleClose, hotel }) => {
+const HotelModal = ({ show, handleClose, hotel, setShowToast, setToastBgType, setToastMessage }) => {
   const [selectedRoom, setSelectedRoom] = useState(null);
   const [checkInDate, setCheckInDate] = useState("");
   const [checkOutDate, setCheckOutDate] = useState("");
@@ -45,10 +45,17 @@ const HotelModal = ({ show, handleClose, hotel }) => {
         }
       );
 
+      setToastMessage(response.data.message);
+      setToastBgType("success");
+      setShowToast(true);
+
       console.log("Booking successful:", response.data);
       setLoading(false);
       handleClose();
     } catch (error) {
+      setToastMessage(error.message);
+      setToastBgType("danger");
+      setShowToast(true);
       console.error("Error making booking:", error);
       setLoading(false);
     }

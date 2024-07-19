@@ -28,7 +28,6 @@ function Flights() {
   const [selectedFlight, setSelectedFlight] = useState(null);
   const navigate = useNavigate();
 
-
   const handleSearch = async (e) => {
     e.preventDefault();
     try {
@@ -74,10 +73,21 @@ function Flights() {
           },
         }
       );
+      setToastMessage(response.data.message);
+      setToastBgType("success");
+      setShowToast(true);
+      if (!response.data.message) {
+        setToastMessage(`No flights from ${from} to ${to} in that particular date.`);
+        setToastBgType("danger");
+        setShowToast(true);
+      }
 
       // Set the flights state with the response data
       setFlights(response.data);
     } catch (error) {
+      setToastMessage(error.message);
+      setToastBgType("danger");
+      setShowToast(true);
       console.log("Error fetching flights:", error);
     }
   };
@@ -120,7 +130,6 @@ function Flights() {
       setTimeout(() => {
         navigate("/userdashboard");
       }, 2000);
-       
     } catch (error) {
       console.log("Error confirming booking:", error);
       setToastMessage(error.message);
@@ -385,7 +394,10 @@ function Flights() {
           handleConfirmBooking={handleConfirmBooking}
         />
 
-        <ToastContainer position="top-end" className="p-3">
+        <ToastContainer
+          className="position-fixed top-0 end-0 p-3"
+          style={{ zIndex: 1050 }}
+        >
           <Notification
             show={showToast}
             onClose={handleToastClose}

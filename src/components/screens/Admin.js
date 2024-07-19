@@ -5,6 +5,8 @@ import moment from "moment-timezone";
 import Toast from "react-bootstrap/Toast";
 import ToastContainer from "react-bootstrap/ToastContainer";
 
+import { format } from "date-fns";
+
 import UpdateFlightModal from "./modals/UpdateFlightModal";
 import UpdateHotelModal from "./modals/UpdateHotelModal";
 
@@ -19,7 +21,14 @@ function Notification({ show, onClose, message, bgType }) {
   );
 }
 
+function formatDate(dateString) {
+  return dateString
+    ? format(new Date(dateString), "MMMM d, yyyy, h:mm a")
+    : "N/A";
+}
+
 const Admin = () => {
+
   const [flights, setFlights] = useState([]);
   const [hotels, setHotels] = useState([]);
   const [newFlight, setNewFlight] = useState({
@@ -189,15 +198,15 @@ const Admin = () => {
       ],
     }));
   };
-
+  
   const handleFlightSubmit = async (e) => {
     e.preventDefault();
     const formattedFlight = {
       ...newFlight,
-      departureTime: new Date(newFlight.departureTime).toISOString(),
-      arrivalTime: new Date(newFlight.arrivalTime).toISOString(),
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
+      departureTime: moment(newFlight.departureTime).toISOString(),
+      arrivalTime: moment(newFlight.arrivalTime).toISOString(),
+      createdAt: moment().toISOString(),
+      updatedAt: moment().toISOString(),
     };
     try {
       const response = await axios.post(
@@ -817,15 +826,11 @@ const Admin = () => {
                         </p>
                         <p className="mb-1">
                           <strong>Departure:</strong>{" "}
-                          {moment(flight.departureTime).format(
-                            "MMMM Do YYYY, h:mm a"
-                          )}
+                          {formatDate(flight.departureTime)}
                         </p>
                         <p className="mb-1">
                           <strong>Arrival:</strong>{" "}
-                          {moment(flight.arrivalTime).format(
-                            "MMMM Do YYYY, h:mm a"
-                          )}
+                          {formatDate(flight.arrivalTime)}
                         </p>
                         <p className="mb-1">
                           <strong>Duration:</strong> {flight.duration}
