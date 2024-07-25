@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import Notification from "./toasts/Notification";
 import { ToastContainer } from "react-bootstrap";
 import { format } from "date-fns";
+import axios from "axios";
 
 function formatDate(dateString) {
   return dateString
@@ -22,23 +23,25 @@ function Dashboard() {
   const handleToastClose = () => setShowToast(false);
 
   useEffect(() => {
-    fetch("https://make-my-trip-backend.vercel.app/api/booking", {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        const { bookings } = data;
-        console.log(bookings);
-        setBookings(bookings || []); // Provide default empty array if booking is undefined
-      })
-      .catch((err) => {
+    const fetchBookings = async () => {
+      try {
+        const response = await axios.get("https://make-my-trip-backend.vercel.app/api/booking", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          },
+        });
+        const fetchedBookings = response.data.bookings || [];
+        console.log(fetchedBookings);
+        setBookings(fetchedBookings);
+      } catch (err) {
         console.error("Error fetching bookings:", err);
         setToastMessage("Error fetching bookings. Please try again.");
         setToastBgType("danger");
         setShowToast(true);
-      });
+      }
+    };
+
+    fetchBookings();
   }, []);
 
   const handleCancelBooking = (booking) => {
@@ -168,13 +171,13 @@ function Dashboard() {
                                 color: "#000",
                               }}
                             >
-                              {booking.flightDetails.flightInfo.from}
+                              {booking.flightDetails?.flightInfo?.from || "N/A"}
                             </p>
                             <p
                               className="mb-0"
                               style={{ fontSize: "14px", color: "#4a4a4a" }}
                             >
-                              {booking.departureTime}
+                              {formatDate(booking.flightDetails?.flightInfo?.departureTime) || "N/A"}
                             </p>
                           </div>
                           <div className="text-center">
@@ -192,14 +195,14 @@ function Dashboard() {
                                 color: "#000",
                               }}
                             >
-                              {booking.flightDetails.flightInfo.to}
+                              {booking.flightDetails?.flightInfo?.to || "N/A"}
                             </p>
                             <p
                               className="mb-0"
                               style={{ fontSize: "14px", color: "#4a4a4a" }}
                             >
                               {formatDate(
-                                booking.flightDetails.flightInfo.arrivalTime
+                                booking.flightDetails?.flightInfo?.arrivalTime
                               )}
                             </p>
                           </div>
@@ -212,7 +215,7 @@ function Dashboard() {
                             className="fas fa-calendar-alt mr-2"
                             style={{ color: "#008cff" }}
                           ></i>{" "}
-                          {formatDate(booking.flightDetails.departureDate)}
+                          {formatDate(booking.flightDetails?.departureDate)}
                         </p>
                         <p
                           className="mb-0"
@@ -222,14 +225,14 @@ function Dashboard() {
                             className="fas fa-plane-departure mr-2"
                             style={{ color: "#008cff" }}
                           ></i>{" "}
-                          {booking.flightDetails.flightInfo.airline ||
+                          {booking.flightDetails?.flightInfo?.airline ||
                             "Airline not available"}
                         </p>
                       </>
                     ) : (
                       <>
                         <h6 className="mb-3" style={{ color: "#000" }}>
-                          {booking.hotelDetails.hotelInfo.name}
+                          {booking.hotelDetails?.hotelInfo?.name || "N/A"}
                         </h6>
                         <div className="d-flex justify-content-between align-items-center mb-3">
                           <div>
@@ -243,7 +246,7 @@ function Dashboard() {
                               className="mb-0"
                               style={{ fontWeight: "bold", color: "#000" }}
                             >
-                              {formatDate(booking.hotelDetails.checkInDate)}
+                              {formatDate(booking.hotelDetails?.checkInDate)}
                             </p>
                           </div>
                           <div className="text-center">
@@ -263,7 +266,7 @@ function Dashboard() {
                               className="mb-0"
                               style={{ fontWeight: "bold", color: "#000" }}
                             >
-                              {formatDate(booking.hotelDetails.checkOutDate)}
+                              {formatDate(booking.hotelDetails?.checkOutDate)}
                             </p>
                           </div>
                         </div>
@@ -275,7 +278,7 @@ function Dashboard() {
                             className="fas fa-map-marker-alt mr-2"
                             style={{ color: "#008cff" }}
                           ></i>{" "}
-                          {booking.hotelDetails.hotelInfo.city}
+                          {booking.hotelDetails?.hotelInfo?.city || "N/A"}
                         </p>
                         <p
                           className="mb-0"
@@ -285,7 +288,7 @@ function Dashboard() {
                             className="fas fa-users mr-2"
                             style={{ color: "#008cff" }}
                           ></i>{" "}
-                          {booking.hotelDetails.guests} Guests
+                          {booking.hotelDetails?.guests || ""} Guests
                         </p>
                       </>
                     )}
