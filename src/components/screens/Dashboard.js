@@ -25,11 +25,14 @@ function Dashboard() {
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const response = await axios.get("https://make-my-trip-backend.vercel.app/api/booking", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-          },
-        });
+        const response = await axios.get(
+          "https://make-my-trip-backend.vercel.app/api/booking",
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+            },
+          }
+        );
         const fetchedBookings = response.data.bookings || [];
         console.log(fetchedBookings);
         setBookings(fetchedBookings);
@@ -95,13 +98,13 @@ function Dashboard() {
 
   return (
     <div
-      className="container-fluid py-5"
-      style={{ backgroundColor: "#f2f2f2" }}
+      className="container-fluid py-4"
+      style={{ backgroundColor: "#E5E5E5" }}
     >
       <div className="container">
         <h2
           className="text-center mb-4"
-          style={{ color: "#000", fontWeight: "bold", fontSize: "28px" }}
+          style={{ color: "#000", fontWeight: "bold", fontSize: "24px" }}
         >
           Your Trips
         </h2>
@@ -109,24 +112,39 @@ function Dashboard() {
         {bookings.length === 0 ? (
           <div className="text-center p-5 bg-white rounded shadow-sm">
             <img
-              src="https://png.pngtree.com/png-vector/20221227/ourmid/pngtree-hand-drawn-app-folder-empty-state-vector-illustration-png-image_6507785.png"
+              src="https://imgak.mmtcdn.com/mima/images/Desktop/upcoming-empty.png"
               alt="No bookings"
-              style={{ width: "150px", marginBottom: "20px" }}
+              style={{ width: "200px", marginBottom: "20px" }}
             />
-            <h3 style={{ color: "#4a4a4a", marginBottom: "10px" }}>
-              No trips booked yet!
+            <h3
+              style={{
+                color: "#4a4a4a",
+                marginBottom: "10px",
+                fontSize: "18px",
+              }}
+            >
+              You haven't booked any trips yet!
             </h3>
-            <p style={{ color: "#9b9b9b", marginBottom: "20px" }}>
-              Time to pack your bags and start exploring.
+            <p
+              style={{
+                color: "#9b9b9b",
+                marginBottom: "20px",
+                fontSize: "14px",
+              }}
+            >
+              Explore and book amazing travel experiences.
             </p>
             <NavLink
               to="/flights"
-              className="btn btn-primary"
+              className="btn"
               style={{
-                backgroundColor: "#008cff",
+                backgroundColor: "#008CFF",
+                color: "white",
                 border: "none",
-                borderRadius: "25px",
-                padding: "10px 25px",
+                borderRadius: "4px",
+                padding: "10px 20px",
+                fontSize: "14px",
+                fontWeight: "bold",
               }}
             >
               Plan a Trip
@@ -138,27 +156,38 @@ function Dashboard() {
               <div key={booking._id} className="col-md-6 mb-4">
                 <div
                   className="card border-0 shadow-sm h-100"
-                  style={{ borderRadius: "10px", overflow: "hidden" }}
+                  style={{ borderRadius: "8px", overflow: "hidden" }}
                 >
                   <div
-                    className="card-header bg-primary text-white d-flex justify-content-between align-items-center"
+                    className="card-header d-flex justify-content-between align-items-center"
                     style={{
                       backgroundColor:
                         booking.bookingType === "flight"
-                          ? "#0091ff"
-                          : "#008cff",
-                      border: "none",
+                          ? "#0091EA"
+                          : "#00897B",
+                      padding: "12px 15px",
                     }}
                   >
-                    <h5 className="mb-0">
+                    <h5
+                      className="mb-0 text-white"
+                      style={{ fontSize: "16px", fontWeight: "500" }}
+                    >
                       {booking.bookingType === "flight" ? "Flight" : "Hotel"}{" "}
                       Booking
                     </h5>
-                    <span className="badge bg-light text-primary">
+                    
+                    <span
+                      className="badge"
+                      style={{
+                        backgroundColor: "rgba(255,255,255,0.2)",
+                        color: "white",
+                        fontSize: "12px",
+                      }}
+                    >
                       {booking.status}
                     </span>
                   </div>
-                  <div className="card-body">
+                  <div className="card-body" style={{ padding: "15px" }}>
                     {booking.bookingType === "flight" ? (
                       <>
                         <div className="d-flex justify-content-between align-items-center mb-3">
@@ -175,15 +204,17 @@ function Dashboard() {
                             </p>
                             <p
                               className="mb-0"
-                              style={{ fontSize: "14px", color: "#4a4a4a" }}
+                              style={{ fontSize: "13px", color: "#4a4a4a" }}
                             >
-                              {formatDate(booking.flightDetails?.flightInfo?.departureTime) || "N/A"}
+                              {formatDate(
+                                booking.flightDetails?.flightInfo?.departureTime
+                              ) || "N/A"}
                             </p>
                           </div>
                           <div className="text-center">
                             <i
                               className="fas fa-plane"
-                              style={{ color: "#008cff" }}
+                              style={{ color: "#0091EA", fontSize: "20px" }}
                             ></i>
                           </div>
                           <div>
@@ -199,7 +230,7 @@ function Dashboard() {
                             </p>
                             <p
                               className="mb-0"
-                              style={{ fontSize: "14px", color: "#4a4a4a" }}
+                              style={{ fontSize: "13px", color: "#4a4a4a" }}
                             >
                               {formatDate(
                                 booking.flightDetails?.flightInfo?.arrivalTime
@@ -209,42 +240,53 @@ function Dashboard() {
                         </div>
                         <p
                           className="mb-2"
-                          style={{ fontSize: "14px", color: "#4a4a4a" }}
+                          style={{ fontSize: "13px", color: "#4a4a4a" }}
                         >
                           <i
                             className="fas fa-calendar-alt mr-2"
-                            style={{ color: "#008cff" }}
-                          ></i>{" "}
+                            style={{ color: "#0091EA" }}
+                          ></i>
                           {formatDate(booking.flightDetails?.departureDate)}
                         </p>
                         <p
                           className="mb-0"
-                          style={{ fontSize: "14px", color: "#4a4a4a" }}
+                          style={{ fontSize: "13px", color: "#4a4a4a" }}
                         >
                           <i
                             className="fas fa-plane-departure mr-2"
-                            style={{ color: "#008cff" }}
-                          ></i>{" "}
+                            style={{ color: "#0091EA" }}
+                          ></i>
                           {booking.flightDetails?.flightInfo?.airline ||
                             "Airline not available"}
                         </p>
                       </>
                     ) : (
                       <>
-                        <h6 className="mb-3" style={{ color: "#000" }}>
-                          {booking.hotelDetails?.hotelInfo?.name || "N/A"}
+                        <h6
+                          className="mb-3"
+                          style={{
+                            color: "#000",
+                            fontSize: "16px",
+                            fontWeight: "bold",
+                          }}
+                        >
+                         <i class="fa-solid fa-hotel text-success me-2"></i>{booking.hotelDetails?.hotelInfo?.name || "N/A"}
                         </h6>
                         <div className="d-flex justify-content-between align-items-center mb-3">
                           <div>
                             <p
                               className="mb-0"
-                              style={{ fontSize: "14px", color: "#4a4a4a" }}
+                              style={{ fontSize: "13px", color: "#4a4a4a" }}
                             >
                               Check-in
                             </p>
                             <p
                               className="mb-0"
-                              style={{ fontWeight: "bold", color: "#000" }}
+                              style={{
+                                fontWeight: "bold",
+                                color: "#000",
+                                fontSize: "15px",
+                              }}
                             >
                               {formatDate(booking.hotelDetails?.checkInDate)}
                             </p>
@@ -252,19 +294,23 @@ function Dashboard() {
                           <div className="text-center">
                             <i
                               className="fas fa-arrow-right"
-                              style={{ color: "#008cff" }}
+                              style={{ color: "#00897B", fontSize: "16px" }}
                             ></i>
                           </div>
                           <div>
                             <p
                               className="mb-0"
-                              style={{ fontSize: "14px", color: "#4a4a4a" }}
+                              style={{ fontSize: "13px", color: "#4a4a4a" }}
                             >
                               Check-out
                             </p>
                             <p
                               className="mb-0"
-                              style={{ fontWeight: "bold", color: "#000" }}
+                              style={{
+                                fontWeight: "bold",
+                                color: "#000",
+                                fontSize: "15px",
+                              }}
                             >
                               {formatDate(booking.hotelDetails?.checkOutDate)}
                             </p>
@@ -272,32 +318,42 @@ function Dashboard() {
                         </div>
                         <p
                           className="mb-2"
-                          style={{ fontSize: "14px", color: "#4a4a4a" }}
+                          style={{ fontSize: "13px", color: "#4a4a4a" }}
                         >
                           <i
                             className="fas fa-map-marker-alt mr-2"
-                            style={{ color: "#008cff" }}
-                          ></i>{" "}
+                            style={{ color: "#00897B" }}
+                          ></i>
                           {booking.hotelDetails?.hotelInfo?.city || "N/A"}
                         </p>
                         <p
                           className="mb-0"
-                          style={{ fontSize: "14px", color: "#4a4a4a" }}
+                          style={{ fontSize: "13px", color: "#4a4a4a" }}
                         >
                           <i
                             className="fas fa-users mr-2"
-                            style={{ color: "#008cff" }}
-                          ></i>{" "}
-                          {booking.hotelDetails?.guests || ""} Guests
+                            style={{ color: "#00897B" }}
+                          ></i>
+                          {booking.hotelDetails?.guests || "2"} Guests
                         </p>
                       </>
                     )}
                   </div>
-                  <div className="card-footer bg-white border-top-0">
+                  <div
+                    className="card-footer bg-white"
+                    style={{
+                      borderTop: "1px solid #e0e0e0",
+                      padding: "12px 15px",
+                    }}
+                  >
                     <button
                       onClick={() => handleCancelBooking(booking)}
                       className="btn btn-outline-danger btn-sm"
-                      style={{ borderRadius: "20px" }}
+                      style={{
+                        borderRadius: "4px",
+                        fontSize: "13px",
+                        padding: "5px 10px",
+                      }}
                     >
                       Cancel Booking
                     </button>
